@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Covid test</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body >
+<div class="container-fluid">
+    <div class="row">
+        <div id="welcome-page col-12 d-none">
+            some welcome page
+            <!-- put here the contents for the landing page-->
+        </div>
+        <div class="row">
+            <div id="questions-board col-offset-3 col-6">
+                <div class="questions-board__steps-containner">
+                   <div class="top-area-con">
+                        <div class="dot dot--left"></div>
+                        <div class="horizontal-line"></div>
+                        <div class="dot dot--right"></div>
+                        <span class="active-step">
+                            <span class="yellow-circle"></span>
+                        </span>
+                   </div>
+                    <div class="bottom-area-con">
+                        <p class="step-1">text 1</p>
+                        <p class="step-2">text 2</p>
+                        <p class="step-3">text 3</p>
+                    </div>
+                </div>
+                <div class="q-progress-bar">
+                    <div class="progress-bar__progress-con">
+                        <div class="progress-bar__progress"></div>
+                    </div>
+                    <p class="q-progress-label">2/20</p>
+                </div>
+                <div class="question-content">
+                    <!-- this will be inserted form js-->
+                    <div class="question-body">
+                        <div class="question-text"></div>
+                        <form action="#" class="answer-form">
+                            <!-- form inputs will be generated form js-->
+                        </form>
+                    </div>
+                </div>
+                <div class="action-btns">
+                    <span class="q-btn q-btn--back q-btn--action">back</span>
+                    <span class="q-btn q-btn--next q-btn--action">next</span>
+                </div>
+        </div>
+        </div>
+    </div>
+</div>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
