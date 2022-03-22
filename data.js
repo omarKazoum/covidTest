@@ -38,7 +38,12 @@ let foo = [
 
 var foo = (q) => {
 
-    
+//data colletion :
+
+
+
 //display next :
+
+
 
 }
