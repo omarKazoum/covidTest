@@ -8,6 +8,9 @@
 // 2 TEXT INPUT
 
 // input = answer
+QUESTION_TYPE_QCM=0;
+QUESTION_TYPE_INPUT_NBR=1;
+QUESTION_TYPE_INPUT_TEXT=2;
 let qst = [{
     title: {
         fr: "Pensez-vous avoir eu de la fièvre ces derniers jours (frissons, sueurs) ?",
@@ -455,11 +458,20 @@ let qst = [{
         }
     },
     answer : null
-}
-];
+}];
 
+const LANG_FR='fr';
+const LANG_AR='ar';
 let current = 0;
-
+let currentLang= LANG_FR;
+const nextBtn=document.querySelector('.q-btn--next');
+const backBtn=document.querySelector('.q-btn--back');
+backBtn.addEventListener('click',(event)=>{
+    console.log('clicked '+event.target.textContent);
+})
+nextBtn.addEventListener('click',(event)=>{
+    console.log('clicked '+event.target.textContent);
+})
 
 let final = () => { //final answer
 
@@ -467,19 +479,89 @@ let final = () => { //final answer
 
 }
 
-let _DOM_insert = (index) => { // show question in dom
-
-    // inserts the question in dom
-    
-    
+const insertQcmQuestion=(index)=>{
+    if(qst[index].type!==QUESTION_TYPE_QCM)
+        throw 'invalide question type';
+    const question=qst[index];
+    const title=currentLang===LANG_FR? question.title.fr:question.title.ar;
+    const questionBody=document.createElement('div');
+    questionBody.classList.add('question-body');
+    questionBody.innerHTML=`
+                        <div class="question-text">qsdsqdsdfdsf</div>
+                        <form action="#" class="answer-form">
+                            <!-- form inputs will be generated form js-->
+                        </form>
+                   `;
+    questionBody.querySelector('.question-text').textContent=title;
+    const questionForm=questionBody.querySelector('.answer-form');
+    const keys =Object.keys(question.data);
+    keys.forEach((k)=>{
+        //for each one of the possible answers
+        const optionText=currentLang===LANG_FR? question.data[k].fr:question.data[k].ar;
+        const optionValue=k;
+        let optionEl=document.createElement('div');
+        optionEl.classList.add('radiocontainer');
+        optionEl.innerHTML=`
+            <label class="radio"></label>
+            <input type="radio" class="radiobutton">`;
+        const radioBtn=optionEl.querySelector('.radiobutton');
+        const radioLabel=optionEl.querySelector('.radio');
+        radioBtn.value=k;
+        radioBtn.name='answer';
+        radioLabel.textContent=optionText;
+        questionForm.appendChild(optionEl);
+    })
+    const questionContainer=document.querySelector('.question-content');
+    questionContainer.innerHTML='';
+    questionContainer.appendChild(questionBody);
 
 }
+insertQcmQuestion(0)
+const insertInputNumberQuestion=(index)=>{
+    if(qst[index].type!==QUESTION_TYPE_INPUT_NBR)
+        throw 'invalide question type';
+    const question=qst[index];
+    const title=currentLang===LANG_FR? question.title.fr:question.title.ar;
+    const questionBody=document.createElement('div');
+    questionBody.classList.add('question-body');
+    questionBody.innerHTML=`
+                        <div class="question-text">qsdsqdsdfdsf</div>
+                        <form action="#" class="answer-form">
+                            <!-- form inputs will be generated form js-->
+                        </form>
+                   `;
+    questionBody.querySelector('.question-text').textContent=title;
+    const questionForm=questionBody.querySelector('.answer-form');
+
+    const questionContainer=document.querySelector('.question-content');
+    questionContainer.innerHTML='';
+    questionContainer.appendChild(questionBody);
+
+}
+const insertInputTextQuestion=(index)=>{
+    if(qst[index].type!==1)
+        throw 'invalide question type';
+}
+let _DOM_insert = (index) => { // show question in dom
+    switch(qst[index].type){
+        case QUESTION_TYPE_INPUT_TEXT:
+            insertInputTextQuestion(index);
+            break;
+        case QUESTION_TYPE_INPUT_NBR:
+            insertInputNumberQuestion(index);
+            break;
+        case QUESTION_TYPE_QCM:
+            insertQcmQuestion(index);
+            break;
+        default : throw 'unspupported question type';
+    }
 
 
+}
 //takes the resone and decies what to do next
 let foo = (ans) => { //executed when question answer is submitted
         
-//data colletion :
+//data collection :
 
 qst[current].answer = ans;
 
@@ -492,7 +574,6 @@ if (current != qst.length - 1){
 } else {
     final();
 }
-
 
 current++;
 }
