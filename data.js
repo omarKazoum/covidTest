@@ -532,6 +532,8 @@ const insertInputNumberQuestion=(index)=>{
                    `;
     questionBody.querySelector('.question-text').textContent=title;
     const questionForm=questionBody.querySelector('.answer-form');
+        const inputParent=document.createElement('div');
+        inputParent.classList.add('')
 
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
