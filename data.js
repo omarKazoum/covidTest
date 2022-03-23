@@ -8,7 +8,7 @@
 // 2 TEXT INPUT
 
 // input = answer
-let foo = [{
+let qst = [{
     title: {
         fr: "Pensez-vous avoir eu de la fièvre ces derniers jours (frissons, sueurs) ?",
         ar: ""
@@ -27,7 +27,8 @@ let foo = [{
             fr: "NE SAIT PAS",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -42,7 +43,8 @@ let foo = [{
         },
         min: 35,
         max: 40
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -59,7 +61,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -76,7 +79,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -93,7 +97,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -110,7 +115,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -127,7 +133,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -144,7 +151,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -161,7 +169,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -186,7 +195,8 @@ let foo = [{
             fr: "Très mal",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -199,7 +209,8 @@ let foo = [{
             fr: "symptôme",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -214,7 +225,8 @@ let foo = [{
         },
         min: 0,
         max: 120
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -229,7 +241,8 @@ let foo = [{
         },
         min: 20,
         max: 200
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -244,7 +257,8 @@ let foo = [{
         },
         min: 50,
         max: 200
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -265,7 +279,8 @@ let foo = [{
             fr: "Ne sait pas",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -282,7 +297,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -299,7 +315,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -316,7 +333,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -333,7 +351,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -350,7 +369,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -371,7 +391,8 @@ let foo = [{
             fr: "MALE",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -392,7 +413,8 @@ let foo = [{
             fr: "NE SAIT PAS",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -409,7 +431,8 @@ let foo = [{
             fr: "NON",
             ar: ""
         }
-    }
+    },
+    answer : null
 },
 {
     title: {
@@ -430,36 +453,46 @@ let foo = [{
             fr: "NE SAIT PAS",
             ar: ""
         }
-    }
+    },
+    answer : null
 }
 ];
 
+let current = 0;
 
 
-let bar = () => { //final answer
+let final = () => { //final answer
+
+
 
 }
 
 let _DOM_insert = (index) => { // show question in dom
 
     // inserts the question in dom
-
+    
     
 
 }
 
 
 //takes the resone and decies what to do next
-let foo = (q) => { //executed when question answer is submitted
+let foo = (ans) => { //executed when question answer is submitted
         
 //data colletion :
 
-
-
+qst[current].answer = ans;
 
 //display next :
 
 // _DOM_insert() or bar()
 
+if (current != qst.length - 1){
+    _DOM_insert(current + 1);
+} else {
+    final();
+}
 
+
+current++;
 }
