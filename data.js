@@ -464,11 +464,16 @@ const LANG_FR='fr';
 const LANG_AR='ar';
 let current = 0;
 let currentLang= LANG_FR;
+
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
+//used to display the final result
+const resultBtn=document.querySelector('.q-btn--show-result');
+resultBtn.addEventListener('click',final)
 backBtn.addEventListener('click',(event)=>{
     console.log('clicked '+event.target.textContent);
 })
+backBtn.style.display='none';
 nextBtn.addEventListener('click',(event)=>{
     console.log('clicked '+event.target.textContent);
 })
@@ -516,7 +521,6 @@ const insertQcmQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 
 }
-insertQcmQuestion(0)
 const insertInputNumberQuestion=(index)=>{
     if(qst[index].type!==QUESTION_TYPE_INPUT_NBR)
         throw 'invalide question type';
@@ -532,17 +536,52 @@ const insertInputNumberQuestion=(index)=>{
                    `;
     questionBody.querySelector('.question-text').textContent=title;
     const questionForm=questionBody.querySelector('.answer-form');
-        const inputParent=document.createElement('div');
-        inputParent.classList.add('')
-
+    const inputParent=document.createElement('div');
+    inputParent.classList.add('inputtext','my-5');
+    inputParent.innerHTML=`
+        <label id="labeltext"></label>
+        <input type="number" placeholder="37" class="rounded textinput">
+    `;
+    inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
+    questionForm.innerHTML='';
+    questionForm.appendChild(inputParent);
+    const input=inputParent.querySelector('.textinput');
+    input.placeholder=question.data.min;
+    input.min=question.data.min;
+    input.max=question.data.max;
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
-
 }
 const insertInputTextQuestion=(index)=>{
     if(qst[index].type!==1)
         throw 'invalide question type';
+    const question=qst[index];
+    const title=currentLang===LANG_FR? question.title.fr:question.title.ar;
+    const questionBody=document.createElement('div');
+    questionBody.classList.add('question-body');
+    questionBody.innerHTML=`
+                        <div class="question-text">qsdsqdsdfdsf</div>
+                        <form action="#" class="answer-form">
+                            <!-- form inputs will be generated form js-->
+                        </form>
+                   `;
+    questionBody.querySelector('.question-text').textContent=title;
+    const questionForm=questionBody.querySelector('.answer-form');
+    const inputParent=document.createElement('div');
+    inputParent.classList.add('inputtext','my-5');
+    inputParent.innerHTML=`
+        <label id="labeltext"></label>
+        <input type="text"  class="rounded textinput">
+    `;
+    inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
+    questionForm.innerHTML='';
+    questionForm.appendChild(inputParent);
+    const input=inputParent.querySelector('.textinput');
+    //change input propreties here
+    const questionContainer=document.querySelector('.question-content');
+    questionContainer.innerHTML='';
+    questionContainer.appendChild(questionBody);
 }
 let _DOM_insert = (index) => { // show question in dom
     switch(qst[index].type){
