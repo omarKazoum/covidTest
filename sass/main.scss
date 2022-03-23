@@ -1,4 +1,5 @@
 $colorDarkBlue:#1078AD;
+$colorred:red;
 $colorWhite:white;
 $goldenYellow:#F4CF1B;
 $grayColor:rgba(0,0,0,.03);
@@ -34,3 +35,29 @@ $font-size:24px;
   font-weight: bold;
   font-size: 25px;
 }
+.radiocontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.radiobutton{
+  margin-left: 10px;
+  width: 25px;
+  height: 25px;
+}
+.input{
+  border-color:  $colorDarkBlue;
+  height: 40px;
+  color: #1078AD;
+}
+::placeholder{
+  color: $colorDarkBlue;
+}
+.textinput{  
+  border: 2px solid $colorDarkBlue !important;
+  color: #1078AD;
+  height: 35px;
+  text-align: end;
+  padding-right: 10px;
+}
+
