@@ -9,6 +9,7 @@
 </head>
 <body >
 <div class="container-fluid">
+    
     <div class="row">
         <div id="welcome-page col-12 d-none">
             some welcome page
@@ -43,12 +44,20 @@
                         <div class="question-text"></div>
                         <form action="#" class="answer-form">
                             <!-- form inputs will be generated form js-->
+                            <div class="radiocontainer">
+                                <label class="radio ">نعم</label>
+                                <input type="radio" class="radiobutton">
+                            </div>
+                            <div class="inputtext my-5">
+                                <label class="text" style="color: #1078AD; font-size: 24px;">درجة</label>
+                                <input type="text" placeholder="37" class="rounded textinput">
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="action-btns">
-                    <span class="q-btn q-btn--back q-btn--action">back</span>
-                    <span class="q-btn q-btn--next q-btn--action">next</span>
+                <div class="action-btns my-5">
+                    <span class="q-btn q-btn--back q-btn--action mx-3"> السؤال لقبل</span>
+                    <span class="q-btn q-btn--next q-btn--action">دوز السؤال الاخر</span>
                 </div>
         </div>
         </div>
