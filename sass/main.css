@@ -1,7 +1,7 @@
 .q-btn {
   cursor: pointer;
   border: #1078AD solid 3px;
-  font-family: "Cairo", sans-serif;
+  font-family: 'Cairo' , sans-serif;
   color: #1078AD;
   padding: 10px;
   font-size: 20px;
@@ -9,13 +9,16 @@
   display: inline-block;
   border-radius: 5px;
 }
+
 .q-btn--selected {
   color: #F4CF1B !important;
   background-color: #1078AD !important;
 }
+
 .q-btn--action {
   background-color: white;
 }
+
 .q-btn--action:hover {
   background-color: #1078AD;
   color: white;
@@ -28,9 +31,15 @@
 }
 
 .radiocontainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .radiobutton {
@@ -42,6 +51,18 @@
 .input {
   border-color: #1078AD;
   height: 40px;
+  color: #1078AD;
+}
+
+::-webkit-input-placeholder {
+  color: #1078AD;
+}
+
+:-ms-input-placeholder {
+  color: #1078AD;
+}
+
+::-ms-input-placeholder {
   color: #1078AD;
 }
 
@@ -61,5 +82,4 @@
   color: #1078AD;
   font-size: 24px;
 }
-
 /*# sourceMappingURL=main.css.map */
