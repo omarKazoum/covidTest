@@ -1,24 +1,23 @@
 class Question{
-
     constructor(text,valideAnswerSubmittedCallBack=null) {
         this.btnBack=document.querySelector('btn--back');
         this.btnNext=document.querySelector('btn--next');
         this.text=text;
         this.valideAnswerSubmittedCallBack=valideAnswerSubmittedCallBack;
         this.questionLayoutCon=document.createElement("div");
-        questionLayoutCon.classList.add('question-body');
-        questionLayoutCon.innerHTML=`
+        this.questionLayoutCon.classList.add('question-body');
+        this.questionLayoutCon.innerHTML=`
                 <div class="question-text"></div>
-                <form action="#" class="answer-form">     
+                <form action="#" class="answer-form">
+                         
                 </form>
           `;
         this.answer='';
         //TODO : change this
-        con.querySelector('.answer-form').addEventListener('submit',(e)=>{
+        this.questionLayoutCon.querySelector('.answer-form').addEventListener('submit',(e)=>{
             e.preventDefault();
             if(isAnswerValide()){
                 valideAnswerSubmittedCallBack(this);
-
             }
         });
     }
@@ -44,7 +43,6 @@ class Question{
         this.btnBack.disabled=b;
     }
 }
-
 class QCMQuestion extends Question{
     /**
      *
@@ -55,10 +53,8 @@ class QCMQuestion extends Question{
      */
     constructor(questionText,options,valideAnswerSubmittedCallBack=null) {
                 super(questionText,valideAnswerSubmittedCallBack,invalideAnswerSubmitted);
-
                 this.options;
     }
-
     /**
      * validates the questions form
      * @returns {boolean}
@@ -66,11 +62,7 @@ class QCMQuestion extends Question{
     isAnswerValide() {
         return true;
     }
-
-
-
 }
-
 class InputQuestion extends Question{
     constructor(questionText,min,max,inputLabel,valideAnswerSubmittedCallBack=null){
         super(questionText,valideAnswerSubmittedCallBack,invalideAnswerSubmitted);
@@ -93,6 +85,8 @@ class InputQuestion extends Question{
     isAnswerValide(answer) {
         //check weather the value in the input is between min and max supplied
         // in the constructor and return a boolean
+        return answer >=this.min && answer<=this.max;
+
     }
 
 }
