@@ -1,4 +1,3 @@
-
 //TYPES :
 // 0 QCM
 //  1 - oui
@@ -515,6 +514,7 @@ let current = 0; //current question. !DO NOT INCREMENT ON FRONTEND!
 const LANG_FR='fr';
 const LANG_AR='ar';
 let currentLang= LANG_FR;
+
 let final = () => { //executed after final question.
     console.log("trigger : final");
     //calculate answer (first method. points system.) advanced algorithm later.
@@ -552,13 +552,7 @@ backBtn.style.display='none';
 nextBtn.addEventListener('click',(event)=>{
     console.log('clicked '+event.target.textContent);
 })
-
-
-
-
     //code here.
-
-
 }
 const insertQcmQuestion=(index)=>{
     if(qst[index].type!==QUESTION_TYPE_QCM)
@@ -589,6 +583,10 @@ const insertQcmQuestion=(index)=>{
         const radioLabel=optionEl.querySelector('.radio');
         radioBtn.value=k;
         radioBtn.name='answer';
+        radioBtn.addEventListener('change',($)=>{
+            qst[current].answer=radioBtn.value;
+            allowMoveToNext()
+        })
         radioLabel.textContent=optionText;
         questionForm.appendChild(optionEl);
     })
@@ -618,6 +616,21 @@ const insertInputNumberQuestion=(index)=>{
         <input type="number" placeholder="37" class="rounded textinput">
     `;
     inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
+    const questionInput =inputParent.querySelector('.textinput');
+    questionInput.addEventListener('change',($)=>{
+        //the value of the input has chnaged
+        const value=$.target.value;
+        console.log('value changed');
+        if(value<$.target.max && value>$.target.min){
+            //so the value is valid
+            console.log('value valid');
+            qst[current].answer=value;
+            allowMoveToNext();
+        }else{
+            enableNextBtn(false);
+            console.log('value invalid');
+        }
+    })
     questionForm.innerHTML='';
     questionForm.appendChild(inputParent);
     const input=inputParent.querySelector('.textinput');
@@ -650,6 +663,22 @@ const insertInputTextQuestion=(index)=>{
         <input type="text"  class="rounded textinput">
     `;
     inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
+    const questionInput =inputParent.querySelector('.textinput');
+    input.addEventListener('change',($)=>{
+        //the value of the input has chnaged
+        const value=$.target.value;
+        console.log('value changed');
+        if(value.length>2){
+            console.log('value valid');
+            //so the value is valid
+            qst[current].answer=value;
+            allowMoveToNext();
+        }else{
+            enableNextBtn(false);
+            console.log('value invalid');
+        }
+
+    })
     questionForm.innerHTML='';
     questionForm.appendChild(inputParent);
     const input=inputParent.querySelector('.textinput');
@@ -658,7 +687,8 @@ const insertInputTextQuestion=(index)=>{
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
 }
-let _DOM_insert_question = (index) => { // show question in dom
+let _DOM_insert = (index) => { // show question in dom
+    enableNextBtn(false);
     switch(qst[index].type){
         case QUESTION_TYPE_INPUT_TEXT:
             insertInputTextQuestion(index);
@@ -671,6 +701,7 @@ let _DOM_insert_question = (index) => { // show question in dom
             break;
         default : throw 'unspupported question type';
     }
+}
 let params = {
     title : "",
     sub_text : ""
@@ -710,36 +741,12 @@ let show_data = () => { // shows data for debug
 
 
 let foo = (ans) => { //executed when question answer is submitted
-//debug
-    console.table({
-        answer : ans,
-        current : current,
-        question_length : qst.length
-    });
-//data colletion :
-qst[current].answer = ans; //set answer null value to user input @ runtime.
-//display next :
-if (current != qst.length - 1){ //question position check.
-    //_next extraction changes @ question.type.
-    if (qst[current].type == 0){
-        console.log('next : '+ qst[current].data[ans]._next);
-        _DOM_insert(qst[current].data[ans]._next); // used data[ans] due to different _next per answer.
-    } else if (qst[current].type == 1 || qst[current].type == 2){
-        console.log('next : '+ qst[current].data.text._next);
-        _DOM_insert(qst[current].data.text._next); // used data.text due to single _next. !BAD FOR PRODUCTION!.
-    }
-} else { //if at last question.
-    final(); //display result.
-}
-current++; //increment question counter. NOTE: current is of no use after final(); is called.
-}
-let foo = (ans) => { //executed when question answer is submitted
     //debug
-    console.table({
-        answer : ans,
-        current : current,
-        question_length : qst.length
-    });
+        console.table({
+            answer : ans,
+            current : current,
+            question_length : qst.length
+        });
     //data colletion :
     qst[current].answer = ans; //set answer null value to user input @ runtime.
     //display next :
@@ -757,3 +764,47 @@ let foo = (ans) => { //executed when question answer is submitted
     }
     current++; //increment question counter. NOTE: current is of no use after final(); is called.
 }
+//start state
+
+const nextBtn=document.querySelector('.q-btn--next');
+const backBtn=document.querySelector('.q-btn--back');
+//used to display the final result
+resultBtn=document.querySelector('.q-btn--show-result');
+resultBtn.addEventListener('click',final);
+backBtn.addEventListener('click',(event)=>{
+    console.log('clicked '+event.target.textContent);
+})
+nextBtn.addEventListener('click',(event)=>{
+    foo(qst[current].answer);
+    console.log('clicked '+event.target.textContent);
+})
+
+const enableNextBtn=(b)=>{
+    nextBtn.disabled=!b;
+}
+const enableBackBtn=(b)=>{
+    backBtn.disabled=!b;
+}
+
+
+const allowMoveToNext=()=> {
+    if (current < qst.length - 1){
+        enableNextBtn(true);
+    }else{
+        //we have to show him the result
+        resultBtn.style.display='inline-block';
+        nextBtn.style.display="none";
+    }
+}
+const allowShowResult=()=>{
+
+}
+enableNextBtn(false);
+enableBackBtn(false);
+_DOM_insert(0);
+let isChanged=false;
+document.getElementsByName('name').forEach(function(radio){
+    radio.addEventListener('change',function(e){
+        isChanged=true;
+    });
+})
