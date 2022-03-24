@@ -8,9 +8,9 @@
 
 </head>
 <body >
-<div class="container-fluid">
-        <div class="row">
-            <div id="welcome-page col-12">
+<div class="container-fluid">    
+    <div class="row content">
+        <div id="welcome-page col-12 d-none">
             some welcome page
             </div>
         </div>
@@ -19,24 +19,25 @@
             <div id="questions-board offset-3 col-6 bg-success">
                 <div class="questions-board__steps-containner">
                    <div class="top-area-con">
-                        <div class="dot dot--left"></div>
-                        <div class="horizontal-line"></div>
-                        <div class="dot dot--right"></div>
-                        <span class="active-step">
-                            <span class="yellow-circle"></span>
-                        </span>
+                        <div class="dot_dot_left">
+                            <div class="circle"></div>
+                            <p class="step-1">text1</p>
+                        </div>
+                        <div class="dot_dot_center">
+                            <div class="circle"></div>
+                            <p class="step-2">text2</p>
+                        </div>
+                        <div class="dot_dot_right">
+                            <div class="circle"></div>
+                            <p class="step-3">text3</p>
+                        </div>
                    </div>
-                    <div class="bottom-area-con">
-                        <p class="step-1">text 1</p>
-                        <p class="step-2">text 2</p>
-                        <p class="step-3">text 3</p>
-                    </div>
                 </div>
                 <div class="q-progress-bar">
-                    <div class="progress-bar__progress-con">
-                        <div class="progress-bar__progress"></div>
-                    </div>
                     <p class="q-progress-label">2/20</p>
+                    <div class="progress-bar__progress-con"><!---range div1-->
+                        <div class="progress-bar__progress"></div><!---range div2-->
+                    </div>
                 </div>
                 <div class="question-content">
                     <!-- this will be inserted form js-->
