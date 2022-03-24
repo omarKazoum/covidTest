@@ -64,3 +64,80 @@ $font-size:24px;
   color: #1078AD; 
   font-size: 24px;
 }
+<<<<<<< Updated upstream
+=======
+.questions-board{
+  text-align: center;
+  justify-content: center;
+}
+.q-progress-bar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;;
+}
+.q-progress-bar .progress-bar__progress-con{
+  width: 100%;
+  border-radius: 30px;
+  background-color: #E6F1F7;
+}
+.q-progress-bar .progress-bar__progress-con .progress-bar__progress{
+  width: 20px;
+  background-color: $colorDarkBlue;
+  border-radius: 30px;
+  padding: 5px;
+}
+.bottom-area-con{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.q-progress-label{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.content{
+  display: flex;
+  justify-content: center;
+}
+.top-area-con{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+}
+.top-area-con .circle{
+  background-color: $colorDarkBlue;
+  padding: 10px;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+.dot_dot_left{
+  background-color: $colorLightBlue;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.dot_dot_center{
+  background-color: $colorLightBlue;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.dot_dot_right{
+  background-color: $colorLightBlue;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.answer-form{
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+.action-btns{
+  display:flex;
+  justify-content: space-between;
+}
+>>>>>>> Stashed changes

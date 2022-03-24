@@ -1,3 +1,14 @@
+//getting refrence to all tree parts of the page
+const startContent=document.querySelector("#start-content");
+const quizContent=document.querySelector('#quiz-content');
+const resultContent=document.querySelector('#result-content');
+startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
+    //start quiz is clicked
+    quizContent.style.display="block";
+    startContent.style.display="none";
+});
+resultContent.style.display='none';
+quizContent.style.display="none";
 //TYPES :
 // 0 QCM
 //  1 - oui
@@ -581,6 +592,8 @@ const insertQcmQuestion=(index)=>{
             <input type="radio" class="radiobutton">`;
         const radioBtn=optionEl.querySelector('.radiobutton');
         const radioLabel=optionEl.querySelector('.radio');
+        radioBtn.setAttribute('id','option-'+k);
+        radioLabel.setAttribute('for','option-'+k);
         radioBtn.value=k;
         radioBtn.name='answer';
         radioBtn.addEventListener('change',($)=>{
@@ -642,7 +655,7 @@ const insertInputNumberQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 const insertInputTextQuestion=(index)=>{
-    if(qst[index].type!==1)
+    if(qst[index].type!==2)
         throw 'invalide question type';
     const question=qst[index];
     const title=currentLang===LANG_FR? question.title.fr:question.title.ar;
@@ -741,7 +754,7 @@ let show_data = () => { // shows data for debug
 
 
 let foo = (ans) => { //executed when question answer is submitted
-    //debug
+
         console.table({
             answer : ans,
             current : current,
@@ -760,7 +773,7 @@ let foo = (ans) => { //executed when question answer is submitted
             _DOM_insert(qst[current].data.text._next); // used data.text due to single _next. !BAD FOR PRODUCTION!.
         }
     } else { //if at last question.
-        final(); //display result.
+        resultBtn.style.display='block';
     }
     current++; //increment question counter. NOTE: current is of no use after final(); is called.
 }
@@ -799,12 +812,8 @@ const allowMoveToNext=()=> {
 const allowShowResult=()=>{
 
 }
+//initial state
 enableNextBtn(false);
 enableBackBtn(false);
+resultBtn.style.display='none';
 _DOM_insert(0);
-let isChanged=false;
-document.getElementsByName('name').forEach(function(radio){
-    radio.addEventListener('change',function(e){
-        isChanged=true;
-    });
-})

@@ -8,62 +8,62 @@
 </head>
 <body >
 <div class="container-fluid">
-        <div class="row">
-            <div id="welcome-page col-12">
+    <div class="row">
+        <div id="welcome-page col-12">
             some welcome page
-            </div>
-        </div>
-            <!-- put here the contents for the landing page-->
-        <div class="row">
-            <div id="questions-board offset-3 col-6 bg-success">
-                <div class="questions-board__steps-containner">
-                   <div class="top-area-con">
-                        <div class="dot dot--left"></div>
-                        <div class="horizontal-line"></div>
-                        <div class="dot dot--right"></div>
-                        <span class="active-step">
-                            <span class="yellow-circle"></span>
-                        </span>
-                   </div>
-                    <div class="bottom-area-con">
-                        <p class="step-1">text 1</p>
-                        <p class="step-2">text 2</p>
-                        <p class="step-3">text 3</p>
-                    </div>
-                </div>
-                <div class="q-progress-bar">
-                    <div class="progress-bar__progress-con">
-                        <div class="progress-bar__progress"></div>
-                    </div>
-                    <p class="q-progress-label">2/20</p>
-                </div>
-                <div class="question-content">
-                    <!-- this will be inserted form js-->
-                    <div class="question-body">
-                        <div class="question-text">qsdsqdsdfdsf</div>
-                        <form action="#" class="answer-form">
-                            <!-- form inputs will be generated form js-->
-                            <div class="radiocontainer">
-                                <label class="radio ">نعم</label>
-                                <input type="radio" class="radiobutton">
-                            </div>
-                            <div class="inputtext my-5">
-                                <label id="labeltext">درجة</label>
-                                <input type="text" placeholder="37" class="rounded textinput">
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-                <div class="action-btns my-5">
-                    <button class="q-btn q-btn--back q-btn--action mx-3">Question précédente</button>
-                    <button class="q-btn q-btn--next q-btn--action">Question suivante</button>
-                    <button class="q-btn q-btn--show-result q-btn--action">Question suivante</button>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
+    <!-- put here the contents for the landing page-->
+    <div class="row">
+        <div id="questions-board" class="offset-3 col-6">
+            <div class="questions-board__steps-containner">
+                <div class="top-area-con">
+                    <div class="dot dot--left"></div>
+                    <div class="horizontal-line"></div>
+                    <div class="dot dot--right"></div>
+                    <span class="active-step">
+                            <span class="yellow-circle"></span>
+                        </span>
+                </div>
+                <div class="bottom-area-con">
+                    <p class="step-1">text 1</p>
+                    <p class="step-2">text 2</p>
+                    <p class="step-3">text 3</p>
+                </div>
+            </div>
+            <div class="q-progress-bar">
+                <div class="progress-bar__progress-con">
+                    <div class="progress-bar__progress"></div>
+                </div>
+                <p class="q-progress-label">2/20</p>
+            </div>
+            <div class="question-content">
+                <!-- this will be inserted form js-->
+                <div class="question-body">
+                    <div class="question-text">qsdsqdsdfdsf</div>
+                    <form action="#" class="answer-form">
+                        <!-- form inputs will be generated form js-->
+                        <div class="radiocontainer">
+                            <label class="radio ">نعم</label>
+                            <input type="radio" class="radiobutton">
+                        </div>
+                        <div class="inputtext my-5">
+                            <label id="labeltext">درجة</label>
+                            <input type="text" placeholder="37" class="rounded textinput">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="action-btns my-5">
+                <button class="q-btn q-btn--back q-btn--action mx-3">Question précédente</button>
+                <button class="q-btn q-btn--next q-btn--action">Question suivante</button>
+                <button class="q-btn q-btn--show-result q-btn--action">Montrer le résultat</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 <script src="data.js"></script>
 </body>
