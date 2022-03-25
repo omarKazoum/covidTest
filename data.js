@@ -1,3 +1,23 @@
+//getting refrence to all tree parts of the page
+const startContent=document.querySelector("#start-content");
+const quizContent=document.querySelector('#quiz-content');
+const resultContent=document.querySelector('#result-content');
+const infoContainner=document.querySelector('.info-container');
+const quizWrapper=document.querySelector('.questions-board-wrapper');
+startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
+    //start quiz is clicked
+    quizContent.style.display="block";
+    startContent.style.display="none";
+});
+startQuizBtn2=document.querySelector('.q-btn--start-test');
+startQuizBtn2.addEventListener('click',()=>{
+    quizWrapper.style.display='block';
+    infoContainner.style.display='none';
+})
+resultContent.style.display='none';
+quizWrapper.style.display='none';
+quizContent.style.display="none";
+//startContent.style.display="none";
 //TYPES :
 // 0 QCM
 //  1 - oui
@@ -581,6 +601,8 @@ const insertQcmQuestion=(index)=>{
             <input type="radio" class="radiobutton">`;
         const radioBtn=optionEl.querySelector('.radiobutton');
         const radioLabel=optionEl.querySelector('.radio');
+        radioBtn.setAttribute('id','option-'+k);
+        radioLabel.setAttribute('for','option-'+k);
         radioBtn.value=k;
         radioBtn.name='answer';
         radioBtn.addEventListener('change',($)=>{
@@ -642,7 +664,7 @@ const insertInputNumberQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 const insertInputTextQuestion=(index)=>{
-    if(qst[index].type!==1)
+    if(qst[index].type!==2)
         throw 'invalide question type';
     const question=qst[index];
     const title=currentLang===LANG_FR? question.title.fr:question.title.ar;
@@ -664,7 +686,7 @@ const insertInputTextQuestion=(index)=>{
     `;
     inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
     const questionInput =inputParent.querySelector('.textinput');
-    input.addEventListener('change',($)=>{
+    questionInput.addEventListener('change',($)=>{
         //the value of the input has chnaged
         const value=$.target.value;
         console.log('value changed');
@@ -688,6 +710,7 @@ const insertInputTextQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 let _DOM_insert = (index) => { // show question in dom
+    setProgress((index+1)/qst.length*100,(index+1)+"/"+qst.length);
     enableNextBtn(false);
     switch(qst[index].type){
         case QUESTION_TYPE_INPUT_TEXT:
@@ -741,7 +764,7 @@ let show_data = () => { // shows data for debug
 
 
 let foo = (ans) => { //executed when question answer is submitted
-    //debug
+
         console.table({
             answer : ans,
             current : current,
@@ -760,7 +783,7 @@ let foo = (ans) => { //executed when question answer is submitted
             _DOM_insert(qst[current].data.text._next); // used data.text due to single _next. !BAD FOR PRODUCTION!.
         }
     } else { //if at last question.
-        final(); //display result.
+        resultBtn.style.display='block';
     }
     current++; //increment question counter. NOTE: current is of no use after final(); is called.
 }
@@ -799,12 +822,21 @@ const allowMoveToNext=()=> {
 const allowShowResult=()=>{
 
 }
+const setActiveStep=(step/* from 1 to 3*/)=>{
+    if(step>3 || step<1)
+        throw `step ${step} does not exit`;
+    document.querySelector('.step.active').classList.toggle('active');
+    document.querySelectorAll('.step')[step-1].classList.toggle('active');
+}
+const setProgress=(progress/* from 0 to 100 */,text)=>{
+    console.log("progress "+progress)
+    if(progress>100 || progress<0)
+        throw "progress of value "+progress+" not authorized";
+    document.querySelector('.progress-bar__progress').style.width=progress+"%";
+    document.querySelector('.q-progress-label').textContent=text;
+}
+//initial state
 enableNextBtn(false);
 enableBackBtn(false);
+resultBtn.style.display='none';
 _DOM_insert(0);
-let isChanged=false;
-document.getElementsByName('name').forEach(function(radio){
-    radio.addEventListener('change',function(e){
-        isChanged=true;
-    });
-})
