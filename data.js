@@ -641,9 +641,10 @@ const insertInputNumberQuestion=(index)=>{
     const questionInput =inputParent.querySelector('.textinput');
     questionInput.addEventListener('change',($)=>{
         //the value of the input has chnaged
-        const value=$.target.value;
+        const value= parseInt($.target.value);
+
         console.log('value changed');
-        if(value<$.target.max && value>$.target.min){
+        if(value<parseInt($.target.max) && value>parseInt($.target.min)){
             //so the value is valid
             console.log('value valid');
             qst[current].answer=value;
@@ -655,10 +656,9 @@ const insertInputNumberQuestion=(index)=>{
     })
     questionForm.innerHTML='';
     questionForm.appendChild(inputParent);
-    const input=inputParent.querySelector('.textinput');
-    input.placeholder=question.data.min;
-    input.min=question.data.min;
-    input.max=question.data.max;
+    questionInput.placeholder= (parseInt(question.data.min) + parseInt(question.data.min)) / 3;
+    questionInput.min=question.data.min;
+    questionInput.max=question.data.max;
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
