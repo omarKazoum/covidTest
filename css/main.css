@@ -21,6 +21,13 @@
   color: white;
 }
 
+.q-btn[disabled] {
+  background-color: #a6e1ff;
+  border: 2px solid lightblue;
+  color: white;
+  cursor: not-allowed;
+}
+
 .question-text {
   color: #787878;
   font-weight: bold;
@@ -62,9 +69,11 @@
   font-size: 24px;
 }
 
-<<<<<<< Updated upstream
-=======
-.questions-board {
+.questions-board-wrapper {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#questions-board {
   text-align: center;
   justify-content: center;
 }
@@ -74,6 +83,9 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0.75rem 1.25rem;
 }
 
 .q-progress-bar .progress-bar__progress-con {
@@ -100,47 +112,6 @@
   padding: 0px !important;
 }
 
-.content {
-  display: flex;
-  justify-content: center;
-}
-
-.top-area-con {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 50px;
-}
-
-.top-area-con .circle {
-  background-color: #1078AD;
-  padding: 10px;
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-}
-
-.dot_dot_left {
-  background-color: #a6e1ff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.dot_dot_center {
-  background-color: #a6e1ff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.dot_dot_right {
-  background-color: #a6e1ff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
 .answer-form {
   display: flex;
   justify-content: space-around;
@@ -150,7 +121,65 @@
 .action-btns {
   display: flex;
   justify-content: space-between;
+  margin: 15px;
 }
 
->>>>>>> Stashed changes
+.question-content {
+  padding: 15px;
+}
+
+.questions-board__steps-containner {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
+}
+.questions-board__steps-containner .step .circle {
+  display: inline-block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #0000;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.questions-board__steps-containner .step .circle .circle {
+  background-color: #1078AD;
+}
+.questions-board__steps-containner .step .circle.active {
+  background-color: #1078AD;
+}
+.questions-board__steps-containner .step .circle.active .circle {
+  background-color: #F4CF1B;
+}
+.questions-board__steps-containner .step .circle--small {
+  width: 20px;
+  height: 20px;
+}
+.questions-board__steps-containner .step.active .circle {
+  background-color: #1078AD;
+}
+.questions-board__steps-containner .step.active .circle .circle {
+  background-color: #F4CF1B;
+}
+.questions-board__steps-containner .step__text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1078AD;
+}
+
+.info-container {
+  background-color: #e9ecef;
+}
+.info-container .header {
+  font-size: 18px;
+  font-weight: 1000;
+  color: #1078AD;
+}
+.info-container .paragraph-top {
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 /*# sourceMappingURL=main.css.map */

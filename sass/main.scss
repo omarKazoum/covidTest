@@ -7,6 +7,9 @@ $borderColor:rgba(0,0,0,.125);
 $questionTextColor:#787878;
 $btnClickedTextColor:$goldenYellow;
 $font-size:24px;
+$colorLightBlue:#a6e1ff;
+$progressLightBg:#E6F1F7;
+$infoBackgroundColor:#e9ecef;
 
 .q-btn{
   cursor:pointer;
@@ -30,6 +33,12 @@ $font-size:24px;
     }
   }
 }
+.q-btn[disabled]{
+  background-color: $colorLightBlue;
+  border: 2px solid lightblue;
+  color: white;
+  cursor: not-allowed;
+}
 .question-text{
   color:$questionTextColor;
   font-weight: bold;
@@ -48,25 +57,26 @@ $font-size:24px;
 .input{
   border-color:  $colorDarkBlue;
   height: 40px;
-  color: #1078AD;
+  color: $colorDarkBlue;
 }
 ::placeholder{
   color: $colorDarkBlue;
 }
 .textinput{  
   border: 2px solid $colorDarkBlue !important;
-  color: #1078AD;
+  color: $colorDarkBlue;
   height: 35px;
   text-align: end;
   padding-right: 10px;
 }
 .inputtext ,#labeltext{
-  color: #1078AD; 
+  color: $colorDarkBlue; 
   font-size: 24px;
 }
-<<<<<<< Updated upstream
-=======
-.questions-board{
+.questions-board-wrapper{
+ border: 1px solid $borderColor;
+}
+#questions-board{
   text-align: center;
   justify-content: center;
 }
@@ -74,12 +84,15 @@ $font-size:24px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 5px;;
+  gap: 5px;
+  background-color: $grayColor;
+  border-bottom: 1px solid $borderColor;
+  padding: 0.75rem 1.25rem;
 }
 .q-progress-bar .progress-bar__progress-con{
   width: 100%;
   border-radius: 30px;
-  background-color: #E6F1F7;
+  background-color: $progressLightBg;
 }
 .q-progress-bar .progress-bar__progress-con .progress-bar__progress{
   width: 20px;
@@ -96,41 +109,6 @@ $font-size:24px;
   margin: 0px !important;
   padding: 0px !important;
 }
-.content{
-  display: flex;
-  justify-content: center;
-}
-.top-area-con{
-  display: flex;
-  justify-content: space-between;
-  padding-top: 50px;
-}
-.top-area-con .circle{
-  background-color: $colorDarkBlue;
-  padding: 10px;
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-}
-.dot_dot_left{
-  background-color: $colorLightBlue;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.dot_dot_center{
-  background-color: $colorLightBlue;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.dot_dot_right{
-  background-color: $colorLightBlue;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
 .answer-form{
   display: flex;
   justify-content: space-around;
@@ -139,5 +117,72 @@ $font-size:24px;
 .action-btns{
   display:flex;
   justify-content: space-between;
+  margin: 15px;
 }
->>>>>>> Stashed changes
+.question-content{
+  padding: 15px;
+}
+.questions-board__steps-containner {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
+  .step {
+    .circle {
+      display: inline-block;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: #0000;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+
+      .circle {
+        background-color: $colorDarkBlue;
+      }
+
+      &.active {
+        background-color: $colorDarkBlue;
+
+        .circle {
+          background-color: $goldenYellow;
+        }
+      }
+
+      &--small {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &.active {
+      .circle {
+        background-color: $colorDarkBlue;
+
+        .circle {
+          background-color: $goldenYellow;
+        }
+      }
+
+    }
+    &__text{
+      font-size:18px;
+      font-weight:700;
+      color:$colorDarkBlue;
+    }
+  }
+}
+.info-container{
+  background-color: $infoBackgroundColor;
+  .header{
+    font-size:18px;
+    font-weight:1000;
+    color:$colorDarkBlue;
+  }
+  .paragraph-top{
+    margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom:1px solid rgba(0,0,0,.1);
+    }
+
+}
