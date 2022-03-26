@@ -181,14 +181,6 @@ $btnDisabledBorderColor:#1078AD;
         background-color: $colorDarkBlue;
       }
 
-      &.active {
-        background-color: $colorDarkBlue;
-
-        .circle {
-          background-color: $goldenYellow;
-        }
-      }
-
       &--small {
         width: 20px;
         height: 20px;
@@ -203,7 +195,6 @@ $btnDisabledBorderColor:#1078AD;
           background-color: $goldenYellow;
         }
       }
-
     }
     &__text{
       font-size:18px;

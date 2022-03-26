@@ -182,12 +182,6 @@
 .questions-board__steps-containner .step .circle .circle {
   background-color: #1078AD;
 }
-.questions-board__steps-containner .step .circle.active {
-  background-color: #1078AD;
-}
-.questions-board__steps-containner .step .circle.active .circle {
-  background-color: #F4CF1B;
-}
 .questions-board__steps-containner .step .circle--small {
   width: 20px;
   height: 20px;
