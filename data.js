@@ -31,504 +31,551 @@ const QUESTION_TYPE_QCM=0;
 const QUESTION_TYPE_INPUT_NBR=1;
 const QUESTION_TYPE_INPUT_TEXT=2;
 let qst = [
-{
-    title: { //0
-        fr: "Pensez-vous avoir eu de la fièvre ces derniers jours (frissons, sueurs) ?", //fr
-        ar: "" //ar
-    },
-    type: 0, //question type
-    data: { //answer config
-        1: { //value : text
-            fr: "OUI",
-            ar: "",
-            _next : 1 //next question for this answer
+    {
+        title: {
+            fr: "Pensez-vous avoir eu de la fièvre ces derniers jours (frissons, sueurs) ?",
+            ar: ""
         },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 2
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 2,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 1,
+                icon: "fa-solid fa-check"
+            },
+            2: {
+                fr: "NE SAIT PAS",
+                ar: "",
+                _next: 1,
+                icon: "fa-solid fa-face-meh-blank"
+            }
         },
-        2: {
-            fr: "NE SAIT PAS",
-            ar: "",
-            _next : 1
-        }
+        answer: null
     },
-    answer : null // null. is set at runtime
+    {
+        title: {
+            fr: "Quelle est votre température ?",
+            ar: ""
+        },
+        type: 1,
+        data: {
+            text: {
+                fr: "°C",
+                ar: "°C",
+                _next: 2
+            },
+            min: 35,
+            max: 40
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous une toux ou une augmentation de votre toux habituelle ces derniers jours ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 3,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 3,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous des douleurs musculaires ou des courbatures inhabituelles ces derniers jours ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 4,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 4,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous un mal de gorge apparu ces derniers jours ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 5,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 5,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous de la diarrhée ces dernières 24 heures(au moins 3 selles molles) ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 6,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 6,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous une fatigue inhabituelle ces derniers jours ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 8,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 7,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "cette fatigue vous oblige-t-elle à vous reposer plus de la moitié de la journée ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 8,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 8,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous des difficultés importantes pour vous alimenter ou boire depuis plus de 24hr?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 9,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 9,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous vu apparaître une gêne respiratoire ou une augmentation de votre gêne respiratoire habituelle ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            0: {
+                fr: "NON",
+                ar: "",
+                _next: 10,
+                icon: "fa-solid fa-xmark"
+            },
+            1: {
+                fr: "OUI",
+                ar: "",
+                _next: 10,
+                icon: "fa-solid fa-check"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Comment vous sentez-vous ?",
+            ar: ""
+        },
+        type: 0,
+        data: {
+            1: {
+                fr: "Bien",
+                ar: "",
+                _next: 11,
+                icon: "fa-solid fa-face-laugh"
+            },
+            2: {
+                fr: "Assez bien",
+                ar: "",
+                _next: 11,
+                icon: "fa-solid fa-face-smile-beam"
+            },
+            3: {
+                fr: "Mal",
+                ar: "",
+                _next: 11,
+                icon: "fa-solid fa-face-frown"
+            },
+            4: {
+                fr: "Très mal",
+                ar: "",
+                _next: 11,
+                icon: "fa-solid fa-face-dizzy"
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Avez-vous d’autre symptôme ?",
+            ar: ""
+        },
+        type: 2,
+        data: {
+            text: {
+                fr: "symptôme",
+                ar: "",
+                _next: 12
+            }
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Quel est votre âge ?",
+            ar: ""
+        },
+        type: 1,
+        data: {
+            text: {
+                fr: "âge",
+                ar: "",
+                _next: 13
+            },
+            min: 0,
+            max: 120
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Quel est votre poids ? ",
+            ar: ""
+        },
+        type: 1,
+        data: {
+            text: {
+                fr: "kg",
+                ar: "",
+                _next: 14
+            },
+            min: 20,
+            max: 200
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: "Quel est votre taille ? ",
+            ar: ""
+        },
+        type: 1,
+        data: {
+            text: {
+                fr: "cm",
+                ar: "",
+                _next: 15
+            },
+            min: 50,
+            max: 200
+        },
+        answer: null
+    },
+    {
+        title: {
+            fr: " Avez-vous de l’hypertension artérielle ? Ou avez-vous une maladie cardiaque ou vasculaire ? Ou prenez-vous un traitement à visée cardiologique ?",
+                ar: ""
 },
-{
-    title: { //1
-        fr: "Quelle est votre température ?",
-        ar: ""
-    },
-    type: 1,
+type: 0,
     data: {
-        text: {
-            fr: "°C",
-            ar: "°C",
-            _next : 2
-        },
-        min: 35,
-        max: 40
+    0: {
+        fr: "NON",
+            ar: "",
+            _next: 16,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 16,
+            icon: "fa-solid fa-check"
+    },
+    2: {
+        fr: "Ne sait pas",
+            ar: "",
+            _next: 16,
+            icon: "fa-solid fa-face-meh-blank"
+    }
+},
+answer: null
 },
 {
-    title: { //2
-        fr: "Avez-vous une toux ou une augmentation de votre toux habituelle ces derniers jours ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 3
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 3
-        }
-    },
-    answer : null
-},
-{
-    title: { //3
-        fr: "Avez-vous des douleurs musculaires ou des courbatures inhabituelles ces derniers jours ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 4
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 4
-        }
-    },
-    answer : null
-},
-{
-    title: { //4
-        fr: "Avez-vous un mal de gorge apparu ces derniers jours ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 5
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 5
-        }
-    },
-    answer : null
-},
-{
-    title: { //5
-        fr: "Avez-vous de la diarrhée ces dernières 24 heures(au moins 3 selles molles) ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 6
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 6
-        }
-    },
-    answer : null
-},
-{
-    title: { //6
-        fr: "Avez-vous une fatigue inhabituelle ces derniers jours ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 7
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 8
-        }
-    },
-    answer : null
-},
-{
-    title: { //7
-        fr: "cette fatigue vous oblige-t-elle à vous reposer plus de la moitié de la journée ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 8
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 8
-        }
-    },
-    answer : null
-},
-{
-    title: { //8
-        fr: "Avez-vous des difficultés importantes pour vous alimenter ou boire depuis plus de 24hr?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 9
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 9
-        }
-    },
-    answer : null
-},
-{
-    title: { //9
-        fr: "Avez-vous vu apparaître une gêne respiratoire ou une augmentation de votre gêne respiratoire habituelle ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 10
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 10
-        }
-    },
-    answer : null
-},
-{
-    title: { //10
-        fr: "Comment vous sentez-vous ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "Bien",
-            ar: "",
-            _next : 11
-        },
-        2: {
-            fr: "Assez bien",
-            ar: "",
-            _next : 11
-        },
-        3: {
-            fr: "Mal",
-            ar: "",
-            _next : 11
-        },
-        4: {
-            fr: "Très mal",
-            ar: "",
-            _next : 11
-        }
-    },
-    answer : null
-},
-{
-    title: { //11
-        fr: "Avez-vous d’autre symptôme ?",
-        ar: ""
-    },
-    type: 2,
-    data: {
-        text: {
-            fr: "symptôme",
-            ar: "",
-            _next : 12
-        }
-    },
-    answer : null
-},
-{
-    title: { //12
-        fr: "Quel est votre âge ?",
-        ar: ""
-    },
-    type: 1,
-    data: {
-        text: {
-            fr: "âge",
-            ar: "",
-            _next : 13
-        },
-        min: 0,
-        max: 120
-    },
-    answer : null
-},
-{
-    title: { //13
-        fr: "Quel est votre poids ? ",
-        ar: ""
-    },
-    type: 1,
-    data: {
-        text: {
-            fr: "kg",
-            ar: "",
-            _next : 14
-        },
-        min: 20,
-        max: 200
-    },
-    answer : null
-},
-{
-    title: { //14
-        fr: "Quel est votre taille ? ",
-        ar: ""
-    },
-    type: 1,
-    data: {
-        text: {
-            fr: "cm",
-            ar: "",
-            _next : 15
-        },
-        min: 50,
-        max: 200
-    },
-    answer : null
-},
-{
-    title: { //15
-        fr: " Avez-vous de l’hypertension artérielle ? Ou avez-vous une maladie cardiaque ou vasculaire ? Ou prenez-vous un traitement à visée cardiologique ?",
-        ar: ""
-    },
-    type: 0,
-    data: {
-        1: {
-            fr: "OUI",
-            ar: "",
-            _next : 16
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 16
-        },
-        2: {
-            fr: "Ne sait pas",
-            ar: "",
-            _next : 16
-        }
-    },
-    answer : null
-},
-{
-    title: { //16
+    title: {
         fr: "Êtes-vous diabétique ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 17
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 17
-        }
+            _next: 17,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 17,
+            icon: "fa-solid fa-check"
+    }
+},
+    answer: null
 },
 {
-    title: { //17
+    title: {
         fr: "Avez-vous ou avez-vous eu un cancer ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 18
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 18
-        }
+            _next: 18,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 18,
+            icon: "fa-solid fa-check"
+    }
+},
+    answer: null
 },
 {
-    title: { //18
+    title: {
         fr: " Avez-vous une maladie respiratoire ? Ou êtes-vous suivi par un pneumologue ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 19
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 19
-        }
+            _next: 19,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 19,
+            icon: "fa-solid fa-check"
+    }
+},
+    answer: null
 },
 {
-    title: { //19
+    title: {
         fr: " Avez-vous une insuffisance rénale chronique dialysée ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 20
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 20
-        }
+            _next: 20,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 20,
+            icon: "fa-solid fa-check"
+    }
+},
+    answer: null
 },
 {
-    title: { //20
+    title: {
         fr: " Avez-vous une maladie chronique du foie ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 21
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 21
-        }
+            _next: 21,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 21,
+            icon: "fa-solid fa-check"
+    }
+},
+    answer: null
 },
 {
-    title: { //21
+    title: {
         fr: " Êtes-vous enceinte ?",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 22
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 22
-        },
-        2: {
-            fr: "MALE",
-            ar: "",
-            _next : 22
-        }
+            _next: 22,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 22,
+            icon: "fa-solid fa-check"
+    },
+    2: {
+        fr: "MALE",
+            ar: "",
+            _next: 22,
+            icon: "fa-solid fa-person"
+    }
+},
+    answer: null
 },
 {
-    title: { //22
+    title: {
         fr: "Avez-vous une maladie connue pour diminuer vos défenses immunitaires",
-        ar: ""
+            ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : 23
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : 23
-        },
-        2: {
-            fr: "NE SAIT PAS",
-            ar: "",
-            _next : 23
-        }
+            _next: 23,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: 23,
+            icon: "fa-solid fa-check"
+    },
+    2: {
+        fr: "NE SAIT PAS",
+            ar: "",
+            _next: 23,
+            icon: "fa-solid fa-face-meh-blank"
+    }
+},
+    answer: null
 },
 {
-    title: { //23
+    title: {
         fr: "Prenez-vous un traitement immunosuppresseur ? C’est un traitement qui diminue vos défenses contre les infections. Voici quelques exemples : corticoïdes, méthotrexate, ciclosporine, tacrolimus, azathioprine, cyclophosphamide (liste non exhaustive).",
         ar: ""
     },
     type: 0,
-    data: {
-        1: {
-            fr: "OUI",
+        data: {
+    0: {
+        fr: "NON",
             ar: "",
-            _next : null
-        },
-        0: {
-            fr: "NON",
-            ar: "",
-            _next : null
-        },
-        2: {
-            fr: "NE SAIT PAS",
-            ar: "",
-            _next : null
-        }
+            _next: null,
+            icon: "fa-solid fa-xmark"
     },
-    answer : null
-}];
+    1: {
+        fr: "OUI",
+            ar: "",
+            _next: null,
+            icon: "fa-solid fa-check"
+    },
+    2: {
+        fr: "NE SAIT PAS",
+            ar: "",
+            _next: null,
+            icon: "fa-solid fa-face-meh-blank"
+    }
+},
+    answer: null
+}
+]
+;
 
 let current = 0; //current question. !DO NOT INCREMENT ON FRONTEND!
 const LANG_FR='fr';
@@ -596,21 +643,31 @@ const insertQcmQuestion=(index)=>{
         const optionText=currentLang===LANG_FR? question.data[k].fr:question.data[k].ar;
         const optionValue=k;
         let optionEl=document.createElement('div');
-        optionEl.classList.add('radiocontainer');
+        optionEl.classList.add('option');
         optionEl.innerHTML=`
-            <label class="radio"></label>
-            <input type="radio" class="radiobutton">`;
+            <label class="radioLabel">
+                <input type="radio" class="radiobutton">
+                <i class="icon"></i>
+                <span class="label-text">
+                    Yes
+                </span>
+            </label>`;
         const radioBtn=optionEl.querySelector('.radiobutton');
-        const radioLabel=optionEl.querySelector('.radio');
+        const radioLabel=optionEl.querySelector('label.radioLabel');
         radioBtn.setAttribute('id','option-'+k);
         radioLabel.setAttribute('for','option-'+k);
         radioBtn.value=k;
         radioBtn.name='answer';
         radioBtn.addEventListener('change',($)=>{
+            const activeLabel=document.querySelector('label.active');
+            if(activeLabel!=null)
+                    activeLabel.classList.remove('active');
+            $.target.parentNode.classList.add('active');
             qst[current].answer=radioBtn.value;
             enableNextBtn(true);
         })
-        radioLabel.textContent=optionText;
+        radioLabel.querySelector('.label-text').textContent=optionText;
+        radioLabel.querySelector('.icon').className+=" "+question.data[k].icon;//+/*put here the class from snot awsome */;
         questionForm.appendChild(optionEl);
     })
     const questionContainer=document.querySelector('.question-content');
@@ -771,7 +828,6 @@ let show_data = () => { // shows data for debug
     }
 }
 
-
 let foo = (ans) => { //executed when question answer is submitted
         console.table({
             answer : ans,
@@ -842,7 +898,6 @@ const setProgress=(progress,text)=>{
     document.querySelector('.q-progress-label').textContent=text;
 }
 //initial state
-
 resultContent.style.display='none';
 quizWrapper.style.display='none';
 quizContent.style.display="none";
