@@ -41,17 +41,20 @@ let qst = [
         1: { //value : text
             fr: "OUI",
             ar: "",
-            _next : 1 //next question for this answer
+            _next : 1, //next question for this answer
+            icon:'fa-solid fa-check'
         },
         0: {
             fr: "NON",
             ar: "",
-            _next : 2
+            _next : 2,
+            icon:'fa-solid fa-xmark'
         },
         2: {
             fr: "NE SAIT PAS",
             ar: "",
-            _next : 1
+            _next : 1,
+           // icon:''msqmslqs
         }
     },
     answer : null // null. is set at runtime
@@ -596,12 +599,19 @@ const insertQcmQuestion=(index)=>{
         const optionText=currentLang===LANG_FR? question.data[k].fr:question.data[k].ar;
         const optionValue=k;
         let optionEl=document.createElement('div');
-        optionEl.classList.add('radiocontainer');
+        optionEl.classList.add('option');
         optionEl.innerHTML=`
+            <label class="radio">
+                <input type="radio" class="radiobutton">
+                <i class="icon"></i>
+                <span class="label-text">
+                    Yes
+                </span>
+            </label>
             <label class="radio"></label>
             <input type="radio" class="radiobutton">`;
         const radioBtn=optionEl.querySelector('.radiobutton');
-        const radioLabel=optionEl.querySelector('.radio');
+        const radioLabel=optionEl.querySelector('label');
         radioBtn.setAttribute('id','option-'+k);
         radioLabel.setAttribute('for','option-'+k);
         radioBtn.value=k;
@@ -610,7 +620,8 @@ const insertQcmQuestion=(index)=>{
             qst[current].answer=radioBtn.value;
             enableNextBtn(true);
         })
-        radioLabel.textContent=optionText;
+        radioLabel.querySelector('.label-text').textContent=optionText;
+        radioLabel.querySelector('.icon').className+=" ";//+/*put here the class from snot awsome */;
         questionForm.appendChild(optionEl);
     })
     const questionContainer=document.querySelector('.question-content');
