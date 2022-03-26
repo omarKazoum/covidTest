@@ -1,6 +1,10 @@
+.text-primary {
+  color: #1078AD !important;
+}
+
 .q-btn {
   cursor: pointer;
-  border: #1078AD solid 3px;
+  border: #1078AD solid 2px;
   font-family: "Cairo", sans-serif;
   color: #1078AD;
   padding: 10px;
@@ -15,16 +19,18 @@
 }
 .q-btn--action {
   background-color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 .q-btn--action:hover {
   background-color: #1078AD;
   color: white;
 }
-
 .q-btn[disabled] {
-  background-color: #a6e1ff;
-  border: 2px solid lightblue;
-  color: white;
+  background-color: rgba(77, 163, 206, 0.1);
+  color: #1078AD;
+  border-color: #1078AD;
   cursor: not-allowed;
 }
 
@@ -46,27 +52,40 @@
   height: 25px;
 }
 
-.input {
-  border-color: #1078AD;
-  height: 40px;
-  color: #1078AD;
-}
-
 ::placeholder {
   color: #1078AD;
 }
 
-.textinput {
-  border: 2px solid #1078AD !important;
+.inputtext {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border: 0.5px solid #1078AD;
+  background-color: rgba(77, 163, 206, 0.1);
+}
+.inputtext .textinput {
+  background-color: white;
   color: #1078AD;
   height: 35px;
-  text-align: end;
+  text-align: start;
+  box-shadow: none;
   padding-right: 10px;
+  flex: 1;
+  outline: 0;
+  border: 0;
+  border-radius: 0px;
+  border-right: 0.5px solid #1078AD;
 }
-
-.inputtext, #labeltext {
+.inputtext .textinput.invalide {
+  background-color: #a9444231;
+  color: #a94442;
+}
+.inputtext #labeltext {
+  padding: 0px 5px;
   color: #1078AD;
-  font-size: 24px;
 }
 
 .questions-board-wrapper {
@@ -125,7 +144,24 @@
 }
 
 .question-content {
-  padding: 15px;
+  padding: 1.25rem;
+}
+.question-content .question-text {
+  padding-top: 20px;
+  color: #787878;
+  font-family: "Cairo", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 60px;
+  text-align: center;
+  line-height: 45px;
+  min-height: 150px;
+}
+.question-content label {
+  font-weight: 500;
+  color: #1078AD;
+  text-transform: capitalize;
+  margin: 0px;
 }
 
 .questions-board__steps-containner {

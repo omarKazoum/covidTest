@@ -8,16 +8,16 @@ startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',
     //start quiz is clicked
     quizContent.style.display="block";
     startContent.style.display="none";
+    setActiveStep(1);
 });
 startQuizBtn2=document.querySelector('.q-btn--start-test');
 startQuizBtn2.addEventListener('click',()=>{
     quizWrapper.style.display='block';
     infoContainner.style.display='none';
+    setActiveStep(2);
 })
-resultContent.style.display='none';
-quizWrapper.style.display='none';
-quizContent.style.display="none";
-//startContent.style.display="none";
+//overriding default form behavior
+document.querySelector('form').addEventListener('submit',()=>{return false});
 //TYPES :
 // 0 QCM
 //  1 - oui
@@ -536,6 +536,7 @@ const LANG_AR='ar';
 let currentLang= LANG_FR;
 
 let final = () => { //executed after final question.
+    setActiveStep(3);
     console.log("trigger : final");
     //calculate answer (first method. points system.) advanced algorithm later.
     //first method
@@ -607,7 +608,7 @@ const insertQcmQuestion=(index)=>{
         radioBtn.name='answer';
         radioBtn.addEventListener('change',($)=>{
             qst[current].answer=radioBtn.value;
-            allowMoveToNext()
+            enableNextBtn(true);
         })
         radioLabel.textContent=optionText;
         questionForm.appendChild(optionEl);
@@ -634,31 +635,36 @@ const insertInputNumberQuestion=(index)=>{
     const inputParent=document.createElement('div');
     inputParent.classList.add('inputtext','my-5');
     inputParent.innerHTML=`
-        <label id="labeltext"></label>
-        <input type="number" placeholder="37" class="rounded textinput">
+        <input type="number" placeholder="37" class="textinput">
+        <label id="labeltext"></label>    
     `;
     inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
     const questionInput =inputParent.querySelector('.textinput');
-    questionInput.addEventListener('change',($)=>{
+    questionInput.focus();
+    questionInput.setAttribute('autofocus',1);
+    const changeCallBack=($)=>{
         //the value of the input has chnaged
-        const value=$.target.value;
+        const value=parseInt($.target.value);
         console.log('value changed');
-        if(value<$.target.max && value>$.target.min){
+        if(value<=parseInt($.target.max) && value>=parseInt($.target.min)){
             //so the value is valid
             console.log('value valid');
             qst[current].answer=value;
-            allowMoveToNext();
+            enableNextBtn(true);
+            questionInput.classList.remove('invalide');
         }else{
             enableNextBtn(false);
+            questionInput.classList.add('invalide');
             console.log('value invalid');
         }
-    })
+    }
+    questionInput.addEventListener('keyup',changeCallBack);
+    questionInput.addEventListener('change',changeCallBack);
     questionForm.innerHTML='';
     questionForm.appendChild(inputParent);
-    const input=inputParent.querySelector('.textinput');
-    input.placeholder=question.data.min;
-    input.min=question.data.min;
-    input.max=question.data.max;
+    questionInput.placeholder=question.data.min+" - "+question.data.max;
+    questionInput.min=question.data.min;
+    questionInput.max=question.data.max;
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
@@ -681,12 +687,16 @@ const insertInputTextQuestion=(index)=>{
     const inputParent=document.createElement('div');
     inputParent.classList.add('inputtext','my-5');
     inputParent.innerHTML=`
+        <input type="text"  class="textinput">
         <label id="labeltext"></label>
-        <input type="text"  class="rounded textinput">
+        
     `;
     inputParent.querySelector('#labeltext').textContent=currentLang==LANG_FR?question.data.text.fr:question.data.text.ar;
     const questionInput =inputParent.querySelector('.textinput');
-    questionInput.addEventListener('change',($)=>{
+    questionInput.focus();
+    questionInput.setAttribute('autofocus',1);
+    enableNextBtn(true);
+    questionInput.addEventListener('keydown',($)=>{
         //the value of the input has chnaged
         const value=$.target.value;
         console.log('value changed');
@@ -694,9 +704,7 @@ const insertInputTextQuestion=(index)=>{
             console.log('value valid');
             //so the value is valid
             qst[current].answer=value;
-            allowMoveToNext();
-        }else{
-            enableNextBtn(false);
+          }else{
             console.log('value invalid');
         }
 
@@ -710,6 +718,7 @@ const insertInputTextQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 let _DOM_insert = (index) => { // show question in dom
+    enableBackBtn(current>0);
     setProgress((index+1)/qst.length*100,(index+1)+"/"+qst.length);
     enableNextBtn(false);
     switch(qst[index].type){
@@ -764,7 +773,6 @@ let show_data = () => { // shows data for debug
 
 
 let foo = (ans) => { //executed when question answer is submitted
-
         console.table({
             answer : ans,
             current : current,
@@ -782,10 +790,11 @@ let foo = (ans) => { //executed when question answer is submitted
             console.log('next : '+ qst[current].data.text._next);
             _DOM_insert(qst[current].data.text._next); // used data.text due to single _next. !BAD FOR PRODUCTION!.
         }
+        current++; //increment question counter. NOTE: current is of no use after final(); is called.
     } else { //if at last question.
         resultBtn.style.display='block';
+        nextBtn.style.display="none";
     }
-    current++; //increment question counter. NOTE: current is of no use after final(); is called.
 }
 //start state
 
@@ -796,11 +805,18 @@ resultBtn=document.querySelector('.q-btn--show-result');
 resultBtn.addEventListener('click',final);
 backBtn.addEventListener('click',(event)=>{
     console.log('clicked '+event.target.textContent);
+    if(!current>0)
+        throw "can't go back you are already at position 0";
+    current--;
+    _DOM_insert(current);
 })
 nextBtn.addEventListener('click',(event)=>{
-    foo(qst[current].answer);
+    moveToNextQuestion();
     console.log('clicked '+event.target.textContent);
 })
+const moveToNextQuestion=()=>{
+    foo(qst[current].answer);
+}
 
 const enableNextBtn=(b)=>{
     nextBtn.disabled=!b;
@@ -808,27 +824,17 @@ const enableNextBtn=(b)=>{
 const enableBackBtn=(b)=>{
     backBtn.disabled=!b;
 }
-
-
-const allowMoveToNext=()=> {
-    if (current < qst.length - 1){
-        enableNextBtn(true);
-    }else{
-        //we have to show him the result
-        resultBtn.style.display='inline-block';
-        nextBtn.style.display="none";
-    }
-}
-const allowShowResult=()=>{
-
-}
 const setActiveStep=(step/* from 1 to 3*/)=>{
     if(step>3 || step<1)
         throw `step ${step} does not exit`;
     document.querySelector('.step.active').classList.toggle('active');
     document.querySelectorAll('.step')[step-1].classList.toggle('active');
 }
-const setProgress=(progress/* from 0 to 100 */,text)=>{
+/**
+ * @param progress from 0 to 100
+ * @param text text alongside the progressbar
+ */
+const setProgress=(progress,text)=>{
     console.log("progress "+progress)
     if(progress>100 || progress<0)
         throw "progress of value "+progress+" not authorized";
@@ -836,6 +842,11 @@ const setProgress=(progress/* from 0 to 100 */,text)=>{
     document.querySelector('.q-progress-label').textContent=text;
 }
 //initial state
+
+resultContent.style.display='none';
+quizWrapper.style.display='none';
+quizContent.style.display="none";
+//startContent.style.display="none";
 enableNextBtn(false);
 enableBackBtn(false);
 resultBtn.style.display='none';

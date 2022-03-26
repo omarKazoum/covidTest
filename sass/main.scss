@@ -7,13 +7,16 @@ $borderColor:rgba(0,0,0,.125);
 $questionTextColor:#787878;
 $btnClickedTextColor:$goldenYellow;
 $font-size:24px;
-$colorLightBlue:#a6e1ff;
+$colorLightBlue:rgba(77, 163, 206, 0.1);;
 $progressLightBg:#E6F1F7;
 $infoBackgroundColor:#e9ecef;
-
+$btnDisabledBorderColor:#1078AD;
+.text-primary{
+  color:$colorDarkBlue !important;
+}
 .q-btn{
   cursor:pointer;
-  border:$colorDarkBlue solid 3px;
+  border:$colorDarkBlue solid 2px;
   font-family: 'Cairo' , sans-serif;
   color:$colorDarkBlue;
   padding: 10px;
@@ -27,17 +30,20 @@ $infoBackgroundColor:#e9ecef;
   }
   &--action{
     background-color:lighten($colorDarkBlue,70%);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
     &:hover{
         background-color:$colorDarkBlue ;
         color:$colorWhite;
     }
   }
-}
-.q-btn[disabled]{
-  background-color: $colorLightBlue;
-  border: 2px solid lightblue;
-  color: white;
-  cursor: not-allowed;
+  &[disabled]{
+    background-color: $colorLightBlue;
+    color: $btnDisabledBorderColor;
+    border-color:$btnDisabledBorderColor;
+    cursor: not-allowed;
+  }
 }
 .question-text{
   color:$questionTextColor;
@@ -54,25 +60,41 @@ $infoBackgroundColor:#e9ecef;
   width: 25px;
   height: 25px;
 }
-.input{
-  border-color:  $colorDarkBlue;
-  height: 40px;
-  color: $colorDarkBlue;
-}
 ::placeholder{
   color: $colorDarkBlue;
 }
-.textinput{  
-  border: 2px solid $colorDarkBlue !important;
-  color: $colorDarkBlue;
-  height: 35px;
-  text-align: end;
-  padding-right: 10px;
+.inputtext {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border: 0.5px solid #1078AD;
+  background-color: $colorLightBlue;
+  .textinput {
+    background-color: white;
+    color: $colorDarkBlue;
+    height: 35px;
+    text-align: start;
+    box-shadow: none;
+    padding-right: 10px;
+    flex: 1;
+    outline: 0;
+    border: 0;
+    border-radius: 0px;
+    border-right: 0.5px solid #1078AD;
+    &.invalide{
+      background-color: #a9444231;
+      color: #a94442;
+    }
+  }
+  #labeltext {
+    padding: 0px 5px;
+    color: $colorDarkBlue;
+  }
 }
-.inputtext ,#labeltext{
-  color: $colorDarkBlue; 
-  font-size: 24px;
-}
+
 .questions-board-wrapper{
  border: 1px solid $borderColor;
 }
@@ -118,11 +140,29 @@ $infoBackgroundColor:#e9ecef;
   display:flex;
   justify-content: space-between;
   margin: 15px;
+
 }
 .question-content{
-  padding: 15px;
+  padding: 1.25rem;
+  .question-text{
+    padding-top: 20px;
+    color: #787878;
+    font-family: 'Cairo', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 60px;
+    text-align: center;
+    line-height: 45px;
+    min-height: 150px;
+  }
+  label{
+    font-weight: 500;
+    color: $colorDarkBlue;
+    text-transform:capitalize;
+    margin: 0px;
+  }
 }
-.questions-board__steps-containner {
+.questions-board__steps-containner  {
   display: flex;
   justify-content: space-evenly;
   padding: 15px;
