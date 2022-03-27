@@ -176,7 +176,7 @@ label.radioLabel.active {
   padding: 15px;
 }
 
-.action-btns {
+.quiz-action-btns {
   display: flex;
   justify-content: space-between;
   margin: 15px;

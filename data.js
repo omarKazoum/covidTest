@@ -6,7 +6,14 @@ const quizWrapper=document.querySelector('.questions-board-wrapper');
 const resultContainner=document.querySelector('.resultat-con');
 const restartQuiz=document.querySelector('.q-btn--action-restart-test');
 restartQuiz.addEventListener('click',()=>{
-
+    quizWrapper.style.display='block';
+    quizContent.style.display="block";
+    resultContainner.style.display="none";
+    startContent.style.display="none";
+    enableNextBtn(false);
+    showBackBtn(false);
+    resultBtn.style.display='none';
+    _DOM_insert(0);
 });
 startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
     //start quiz is clicked
@@ -592,6 +599,8 @@ let final = () => { //executed after final question.
     setActiveStep(3);
     console.log("trigger : final");
     //calculate answer (first method. points system.) advanced algorithm later.
+    resultContainner.style.display="block";
+    quizWrapper.style.display="none";
     displayResult(getResult());
 }
 /**
@@ -599,21 +608,16 @@ let final = () => { //executed after final question.
  * @param res
  */
 const displayResult=(res)=>{
-    resultContainner.style.display="block";
 }
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
 //used to display the final result
 const resultBtn=document.querySelector('.q-btn--show-result');
 resultBtn.addEventListener('click',final)
-backBtn.addEventListener('click',(event)=>{
-    console.log('clicked '+event.target.textContent);
-})
-backBtn.style.display='none';
 nextBtn.addEventListener('click',(event)=>{
+    moveToNextQuestion();
     console.log('clicked '+event.target.textContent);
 })
-    //code here.
 
 const insertQcmQuestion=(index)=>{
     if(qst[index].type!==QUESTION_TYPE_QCM)
@@ -768,7 +772,7 @@ const insertInputTextQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 let _DOM_insert = (index) => { // show question in dom
-    enableBackBtn(current>0);
+    showBackBtn(current>0);
     setProgress((index+1)/qst.length*100,(index+1)+"/"+qst.length);
     enableNextBtn(false);
     switch(qst[index].type){
@@ -853,8 +857,9 @@ const moveToNextQuestion=()=>{
 const enableNextBtn=(b)=>{
     nextBtn.disabled=!b;
 }
-const enableBackBtn=(b)=>{
-    backBtn.disabled=!b;
+const showBackBtn=(b)=>{
+    backBtn.style.display=b?"block":"none";
+    document.querySelector('.quiz-action-btns').style.flexDirection=b?'row':'row-reverse';
 }
 const setActiveStep=(step/* from 1 to 3*/)=>{
     if(step>3 || step<1)
@@ -989,6 +994,6 @@ quizContent.style.display="none";
 resultContainner.style.display="none";
 //startContent.style.display="none";
 enableNextBtn(false);
-enableBackBtn(false);
+showBackBtn(false);
 resultBtn.style.display='none';
 _DOM_insert(0);
