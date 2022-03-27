@@ -1,9 +1,13 @@
 //getting refrence to all tree parts of the page
 const startContent=document.querySelector("#start-content");
 const quizContent=document.querySelector('#quiz-content');
-const resultContent=document.querySelector('#result-content');
 const infoContainner=document.querySelector('.info-container');
 const quizWrapper=document.querySelector('.questions-board-wrapper');
+const resultContainner=document.querySelector('.resultat-con');
+const restartQuiz=document.querySelector('.q-btn--action-restart-test');
+restartQuiz.addEventListener('click',()=>{
+
+});
 startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
     //start quiz is clicked
     quizContent.style.display="block";
@@ -581,33 +585,22 @@ let current = 0; //current question. !DO NOT INCREMENT ON FRONTEND!
 const LANG_FR='fr';
 const LANG_AR='ar';
 let currentLang= LANG_FR;
-
+/**
+ * gets called when the show results btn is clicked
+ */
 let final = () => { //executed after final question.
     setActiveStep(3);
     console.log("trigger : final");
     //calculate answer (first method. points system.) advanced algorithm later.
-    //first method
-    let total = 0; //bad symptoms counter. !ALTERNATIVE FOR ALGORITHM
-    let foo = {};
-    qst.forEach((val, i) => {
-        if (val.answer != null){
-            foo[i] = {};
-            foo[i].question = val.title.fr;
-            foo[i].answer = val.answer;
-            if (val.type == 0 || val.answer == 1)
-                total++;
-        }
-    });
-    if (total > 12) {
-        //dom insert SICK
-        console.log("result : SICK");
-        return true;
-    }else{
-        //dom insert HEALTHY
-        console.log("result : HEALTHY");
-        return false;
-    }
-    //second method
+    displayResult(getResult());
+}
+/**
+ * takes the result object {message:String,warn:Boolean} and displays it in DOM
+ * @param res
+ */
+const displayResult=(res)=>{
+    resultContainner.style.display="block";
+}
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
 //used to display the final result
@@ -621,7 +614,7 @@ nextBtn.addEventListener('click',(event)=>{
     console.log('clicked '+event.target.textContent);
 })
     //code here.
-}
+
 const insertQcmQuestion=(index)=>{
     if(qst[index].type!==QUESTION_TYPE_QCM)
         throw 'invalide question type';
@@ -828,7 +821,7 @@ let show_data = () => { // shows data for debug
     }
 }
 
-let foo = (ans) => { //executed when question answer is submitted
+let submitAnswer = (ans) => { //executed when question answer is submitted
         console.table({
             answer : ans,
             current : current,
@@ -853,25 +846,8 @@ let foo = (ans) => { //executed when question answer is submitted
     }
 }
 //start state
-
-const nextBtn=document.querySelector('.q-btn--next');
-const backBtn=document.querySelector('.q-btn--back');
-//used to display the final result
-resultBtn=document.querySelector('.q-btn--show-result');
-resultBtn.addEventListener('click',final);
-backBtn.addEventListener('click',(event)=>{
-    console.log('clicked '+event.target.textContent);
-    if(!current>0)
-        throw "can't go back you are already at position 0";
-    current--;
-    _DOM_insert(current);
-})
-nextBtn.addEventListener('click',(event)=>{
-    moveToNextQuestion();
-    console.log('clicked '+event.target.textContent);
-})
 const moveToNextQuestion=()=>{
-    foo(qst[current].answer);
+    submitAnswer(qst[current].answer);
 }
 
 const enableNextBtn=(b)=>{
@@ -897,10 +873,120 @@ const setProgress=(progress,text)=>{
     document.querySelector('.progress-bar__progress').style.width=progress+"%";
     document.querySelector('.q-progress-label').textContent=text;
 }
-//initial state
-resultContent.style.display='none';
+
+
+/**
+ * decides the message to be displayed to the user and weather to warn him or not based on the collected responses from the user
+ * @return {mesage:String,warn:Boolean}
+ */
+function getResult(){
+    let pron; //=> determine f.pronostique
+    let symp; //=> determine f.gravite mineur
+    let grav; //=> determine f.gravite majeur
+    let message = null;//=> determine  message a affiche
+    let warn=false;
+    if((qst[0].answer==1 || qst[0].answer==2) || (qst[2].answer==1 && qst[4].answer==1) || ((qst[3].answer==1 ||(qst[0].answer==1 || qst[0].answer==2) ) && qst[2].answer==1 && qst[5].answer==1))//avec fièvre, ou toux + mal de gorge, ou toux + courbatures ou fièvre + diarrhée :
+    {
+
+        if(pron==0) //sans facteur pronostique
+        { if(symp==0 && grav==0 && qst[12].answer<50)//Sans facteur de gravité & <50 ans
+        {
+            message= " nous vous conseillons de rester à votre domicile et de contacter votre médecin en cas d’apparition de nouveaux symptômes Vous pourrez aussi utiliser à nouveau l’application pour réévaluer vos symptômes"
+        }
+            if(qst[12].answer>50 && qst[12].answer<69 && symp==0 && grav==0) //Sans facteur de gravité & 50-69 ans
+            {   if(qst[9].answer=1){
+                message= "appel 141"
+                warn=true;
+            }
+            else{message="téléconsultation ou médecin généraliste ou visite à domicile"}
+            }
+        }
+        if(pron>0) // avec un facteur pronostique ou plus
+        {
+
+            if(grav==0 || symp<=1) //Un seul facteur de gravité mineur
+            {
+                if(qst[9].answer==1)
+                {
+                    message= "appel 141"
+                    warn=true;
+                }
+                else{message=" téléconsultation ou médecin généraliste ou visite à domicile"}
+                if(symp>=2 && grav==0) //Au moins deux facteurs de gravité mineurs :
+                {
+                    message= "appel 141"
+                    warn=true;
+                }
+            }
+        }
+        if(grav==1) //avec ou sans facteur pronostique avec au moins un facteur de gravité majeur :
+
+        {
+            message= "appel 141"
+            warn=true;
+
+        }
+    }
+
+    if((qst[0].answer==1 || qst[0].answer==2) && qst[2].answer==1) // avec fièvre et toux :
+    {
+        if(pron==0) // sans facteur pronostique
+        {
+            if(grav==0 || symp>=1) //Sans facteur de gravité ou au moins 1 facteur de gravité mineur sans facteur de gravité majeur :
+            {
+                if(qst[9].answer==1)
+                {
+                    message= "appel 141"
+                    warn=true;
+                }
+                else{message=" téléconsultation ou médecin généraliste ou visite à domicile"}
+            }
+        }
+        if(pron>=1) // avec un facteur pronostique ou plus
+        {
+            if(grav==0 || symp<=1) // avec un facteur pronostique ou plus ou Un seul facteur de gravité mineur
+            {
+                if(qst[9].answer==1)
+                {
+                    message= "appel 141"
+                    warn=true;
+                }
+                else{message=" : téléconsultation ou médecin généraliste ou visite à domicile"}
+            }
+            if(symp>=2) //Au moins deux facteurs de gravité mineurs :
+            {
+                message="appel 141"
+                warn=true;
+            }
+        }
+        if(pron==0 || grav>=1) //avec ou sans facteur pronostique avec au moins un facteur de gravité majeur
+        {
+            message="appel 141"
+            warn=true;
+        }
+    }
+    if((qst[0].answer==1 || qst[0].answer==2 ) || qst[2].answer==1 || qst[3].answer==1 || qst[4].answer==1) //un seul symptôme parmi fièvre, toux, mal de gorge, courbatures
+    {
+        if(grav==0 && symp==0) //Pas de facteur de gravité :
+
+        { message="pas de covid19"}
+        if(pron>=1 || (symp>=1 || grav==1)) //Au moins un facteur de gravité ou un facteur pronostique
+        { message="Votre situation ne relève probablement pas du Covid-19. Un avis médical est recommandé. Au moindre doute, appelez le 141"}
+    }
+
+
+    if(symp==0 && grav==0) //Tout patient avec aucun symptôme :
+    {
+        message="Votre situation ne relève probablement pas du Covid-19. N’hésitez pas à contacter votre médecin en cas de doute. Vous pouvez refaire le test en cas de nouveau symptôme pour réévaluer la situation. Pour toute information concernant le Covid-19 allez vers la page d’accueil."
+    }
+
+    return {message:message,warn:warn};}
+/**
+ * initial state
+ **/
 quizWrapper.style.display='none';
 quizContent.style.display="none";
+resultContainner.style.display="none";
 //startContent.style.display="none";
 enableNextBtn(false);
 enableBackBtn(false);

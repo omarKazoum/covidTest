@@ -6,7 +6,7 @@ let rawData = [
             text1 : "value1",
             text2 : "value2"
         },
-        callback : foo
+        callback : submitAnswer
     },
     {
         title : "bardar",
