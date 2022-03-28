@@ -24,10 +24,10 @@
         <div class="container mt-5 text-center">
             <div class="mx-auto p-3" style="max-width: 500px; background-color: #1078AD; border-radius: 20px;">
                 <div class="">
-                    <h1 class="text-nowrap text-white">بقى فدارك</h1>
+                    <h1 id="titre" class="text-nowrap text-white">بقى فدارك</h1>
                 </div>
-                <div class="mt-4" style="color: #F4CF1B; padding: 10px;">
-                    <h3>بقى فدارك، وحاول متخالطش مع الناس، بزاف ديال الناس الي فيهم الفيروس ماتايبانش فيهم أعراض المرض</h3>
+                <div class="mt-4 message" style="color: #F4CF1B; padding: 10px;">
+                    <h3 id="desc">بقى فدارك، وحاول متخالطش مع الناس، بزاف ديال الناس الي فيهم الفيروس ماتايبانش فيهم أعراض المرض</h3>
                 </div>
             </div>
             <div class="mt-5">
@@ -36,6 +36,15 @@
         </div>
 
     </main>
+
+    <script>
+        function displayResult(titre, message) {
+            document.querySelector('#titre').textContent = titre;
+            document.querySelector('.message').textContent = message;
+        }
+
+        displayResult('azzedine', 'message');
+    </script>
 
 
 
