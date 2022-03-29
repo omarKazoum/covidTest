@@ -18,6 +18,9 @@ restartQuiz.addEventListener('click',()=>{
     showBackBtn(false);
     resultBtn.style.display='none';
     current=0;
+    qst.forEach((q) => {
+        q.answer = null;
+    });
     _DOM_insert(0);
 });
 const startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
@@ -608,10 +611,7 @@ let final = () => { //executed after final question.
     quizWrapper.style.display="none";
     displayResult(getResult(qst));
     // DEBUG
-    console.log(poorPronoFact);
-    console.log(factGravMin);
-    console.log(factGravMaj);
-    console.log(hasPronosticFactor);
+    console.table(qst);
     // END DEBUG
 }
 /**
@@ -686,8 +686,14 @@ const insertQcmQuestion=(index)=>{
         })
         radioLabel.querySelector('.label-text').textContent=optionText;
         radioLabel.querySelector('.icon').className+=" "+question.data[k].icon;//+/*put here the class from snot awsome */;
+        if (qst[index].answer == k) {
+            radioLabel.classList.add('active');
+            radioBtn.checked = true;
+            enableNextBtn(true);
+        }
         questionForm.appendChild(optionEl);
     })
+
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
@@ -717,6 +723,10 @@ const insertInputNumberQuestion=(index)=>{
     const questionInput =inputParent.querySelector('.textinput');
     questionInput.focus();
     questionInput.setAttribute('autofocus',1);
+    if (qst[index].answer != null) {
+        questionInput.value = qst[index].answer;
+        enableNextBtn(true);
+    }
     const changeCallBack=($)=>{
         //the value of the input has chnaged
         const value=parseInt($.target.value);
@@ -770,6 +780,9 @@ const insertInputTextQuestion=(index)=>{
     const questionInput =inputParent.querySelector('.textinput');
     questionInput.focus();
     questionInput.setAttribute('autofocus',1);
+    if (qst[index].answer != null) {
+        questionInput.value = qst[index].answer;
+    }
     enableNextBtn(true);
     questionInput.addEventListener('keydown',($)=>{
         //the value of the input has chnaged
@@ -912,6 +925,7 @@ const setProgress=(progress,text)=>{
 /**
  * initial state
  **/
+quizWrapper.style.display='none';
 quizContent.style.display="none";
 resultContainner.style.display="none";
 //startContent.style.display="none";

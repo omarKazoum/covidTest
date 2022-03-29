@@ -64,12 +64,12 @@ const getResult=(questions)=>{
 
     let err = {
         sick : {
-            text : 'tu n\'es pas malade',
-            color : '#026534'
+            text : 'Tu est malade !',
+            color : '#B22222'
         },
         not_sick : {
-            text : 'tu es malade',
-            color : '#B22222'
+            text : 'Tu n\'est pas malade',
+            color : '#026534'
         }
     }
 
@@ -120,6 +120,8 @@ const getResult=(questions)=>{
     }
     else if (symptoms.fever || symptoms.cough || symptoms.soreThroat || symptoms.muscularPain) {
         if (factGravMaj === 0 && factGravMin === 0) {
+            start();
+            stop();
             msg.title = err.not_sick;
             msg.message = 'Votre situation ne relève probablement pas du Covid-19.';
         } else if (factGravMin > 0 || factGravMaj > 0 || hasPronosticFactor) {
