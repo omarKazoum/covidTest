@@ -607,13 +607,19 @@ let final = () => { //executed after final question.
     resultContainner.style.display="block";
     quizWrapper.style.display="none";
     displayResult(getResult(qst));
+    // DEBUG
+    console.log(poorPronoFact);
+    console.log(factGravMin);
+    console.log(factGravMaj);
+    console.log(hasPronosticFactor);
+    // END DEBUG
 }
 /**
  * takes the result object {message:String,warn:Boolean} and displays it in DOM
  * @param res
  */
 const displayResult=(message)=>{
-    resultMsgElement.textContent=message;
+    resultMsgElement.textContent=message; //modifying this for custom ERROR title
 }
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
