@@ -126,6 +126,7 @@ label.radioLabel{
 }
 .questions-board-wrapper{
  border: 1px solid $borderColor;
+ display: none;
 }
 #questions-board{
   text-align: center;
@@ -178,7 +179,6 @@ label.radioLabel{
     font-family: 'Cairo', sans-serif;
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 60px;
     text-align: center;
     line-height: 45px;
     min-height: 150px;

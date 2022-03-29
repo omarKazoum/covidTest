@@ -129,6 +129,7 @@ label.radioLabel.active {
 
 .questions-board-wrapper {
   border: 1px solid rgba(0, 0, 0, 0.125);
+  display: none;
 }
 
 #questions-board {
@@ -191,7 +192,6 @@ label.radioLabel.active {
   font-family: "Cairo", sans-serif;
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 60px;
   text-align: center;
   line-height: 45px;
   min-height: 150px;
@@ -281,5 +281,3 @@ label.radioLabel.active {
     transform: translatex(0%);
   }
 }
-
-/*# sourceMappingURL=main.css.map */
