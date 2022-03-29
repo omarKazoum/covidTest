@@ -84,6 +84,7 @@ label.radioLabel{
     color:$goldenYellow;
     background-color: $colorDarkBlue;
   }
+
 }
 
 .radiobutton{
@@ -245,4 +246,30 @@ label.radioLabel{
       border-bottom:1px solid rgba(0,0,0,.1);
     }
 
+}
+.start-anim{
+  animation: endAnim 2s alternate;
+}
+.end-anim{
+  animation: endAnim 2s alternate;
+}
+@keyframes startAnim {
+  0%{
+    transform: translatex(0%);
+    opacity: 1;
+  }
+  100%{
+    transform: translatex(100%);
+    opacity: 0;
+  }
+}
+@keyframes endAnim {
+  0%{
+    opacity: 0;
+    transform: translatex(-100%);
+  }
+  100%{
+    opacity: 1;
+    transform: translatex(0%);
+  }
 }

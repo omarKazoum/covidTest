@@ -329,7 +329,7 @@ let qst = [
                 ar: "",
                 _next: 13
             },
-            min: 0,
+            min: 15,
             max: 120
         },
         answer: null
@@ -784,6 +784,11 @@ const insertInputTextQuestion=(index)=>{
     questionContainer.appendChild(questionBody);
 }
 let _DOM_insert = (index) => { // show question in dom
+    /*quizWrapper.classList.remove('start-anim');
+    quizWrapper.classList.remove('end-anim');
+    setTimeout((()=>{
+        quizWrapper.classList.add('start-anim');
+    }),200);*/
     showBackBtn(index>0);
     setProgress((index+1)/qst.length*100,(index+1)+"/"+qst.length);
     enableNextBtn(false);
@@ -799,6 +804,15 @@ let _DOM_insert = (index) => { // show question in dom
             break;
         default : throw 'unspupported question type';
     }
+    /*quizWrapper.classList.remove('start-anim');
+    quizWrapper.classList.remove('end-anim');
+    setTimeout(()=>{
+        quizWrapper.classList.add('end-anim');
+    },200);*/
+    document.querySelector('.answer-form').addEventListener('submit',(e)=>{
+        e.preventDefault();
+        //console.log("test submit");
+    });
 }
 let params = {
     title : "",
@@ -807,12 +821,6 @@ let params = {
 
 let RESULT_TYPE_SICK = 1;
 let RESULT_TYPE_HEALTHY = 0;
-
-let _DOM_insert_result = (params, mode) => {
-
-
-
-}
 
 let show_data = () => { // shows data for debug
     let total = 0; //bad symptoms counter. !ALTERNATIVE FOR ALGORITHM
