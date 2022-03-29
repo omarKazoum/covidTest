@@ -618,8 +618,11 @@ let final = () => { //executed after final question.
  * takes the result object {message:String,warn:Boolean} and displays it in DOM
  * @param res
  */
-const displayResult=(message)=>{
-    resultMsgElement.textContent=message; //modifying this for custom ERROR title
+const displayResult=(obj)=>{
+    resultMsgElement.textContent=obj.message; //modifying this for custom ERROR title
+    resultTitleElement.textContent=obj.title.text;
+    resultTitleElement.style.color = obj.title.color;
+
 }
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
@@ -909,7 +912,6 @@ const setProgress=(progress,text)=>{
 /**
  * initial state
  **/
-quizWrapper.style.display='none';
 quizContent.style.display="none";
 resultContainner.style.display="none";
 //startContent.style.display="none";

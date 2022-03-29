@@ -126,6 +126,7 @@ label.radioLabel{
 }
 .questions-board-wrapper{
  border: 1px solid $borderColor;
+ display: none;
 }
 #questions-board{
   text-align: center;
