@@ -261,7 +261,7 @@ label.radioLabel.active {
   animation: endAnim 2s alternate;
 }
 
-@keyframes startAnim {
+@keyframes startAnim { 
   0% {
     transform: translatex(0%);
     opacity: 1;
