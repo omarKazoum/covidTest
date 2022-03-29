@@ -74,8 +74,8 @@ const getResult=(questions)=>{
     }
 
     let msg = {
-        title : null,
-        message : null
+        title : err.not_sick,
+        message :"téléconsultation ou médecin généraliste ou visite à domicile"
     }
 
     if (symptoms.fever || (symptoms.cough && symptoms.soreThroat) || (symptoms.cough && symptoms.muscularPain) || (symptoms.fever && symptoms.diarrhea)) {
