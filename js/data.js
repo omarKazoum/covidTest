@@ -57,7 +57,7 @@ let qst = [
             0: {
                 fr: "NON",
                 ar: "",
-                _next: 2,
+                _next: 1,
                 icon: "fa-solid fa-xmark"
             },
             1: {
