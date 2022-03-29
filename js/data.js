@@ -18,6 +18,9 @@ restartQuiz.addEventListener('click',()=>{
     showBackBtn(false);
     resultBtn.style.display='none';
     current=0;
+    qst.forEach((q) => {
+        q.answer = null;
+    });
     _DOM_insert(0);
 });
 const startQuizBtn=document.querySelector("#start-quiz-btn").addEventListener('click',()=>{
@@ -607,13 +610,19 @@ let final = () => { //executed after final question.
     resultContainner.style.display="block";
     quizWrapper.style.display="none";
     displayResult(getResult(qst));
+    // DEBUG
+    console.table(qst);
+    // END DEBUG
 }
 /**
  * takes the result object {message:String,warn:Boolean} and displays it in DOM
  * @param res
  */
-const displayResult=(message)=>{
-    resultMsgElement.textContent=message;
+const displayResult=(obj)=>{
+    resultMsgElement.textContent=obj.message; //modifying this for custom ERROR title
+    resultTitleElement.textContent=obj.title.text;
+    resultTitleElement.style.color = obj.title.color;
+
 }
 const nextBtn=document.querySelector('.q-btn--next');
 const backBtn=document.querySelector('.q-btn--back');
@@ -677,8 +686,14 @@ const insertQcmQuestion=(index)=>{
         })
         radioLabel.querySelector('.label-text').textContent=optionText;
         radioLabel.querySelector('.icon').className+=" "+question.data[k].icon;//+/*put here the class from snot awsome */;
+        if (qst[index].answer == k) {
+            radioLabel.classList.add('active');
+            radioBtn.checked = true;
+            enableNextBtn(true);
+        }
         questionForm.appendChild(optionEl);
     })
+
     const questionContainer=document.querySelector('.question-content');
     questionContainer.innerHTML='';
     questionContainer.appendChild(questionBody);
@@ -708,6 +723,10 @@ const insertInputNumberQuestion=(index)=>{
     const questionInput =inputParent.querySelector('.textinput');
     questionInput.focus();
     questionInput.setAttribute('autofocus',1);
+    if (qst[index].answer != null) {
+        questionInput.value = qst[index].answer;
+        enableNextBtn(true);
+    }
     const changeCallBack=($)=>{
         //the value of the input has chnaged
         const value=parseInt($.target.value);
@@ -761,6 +780,9 @@ const insertInputTextQuestion=(index)=>{
     const questionInput =inputParent.querySelector('.textinput');
     questionInput.focus();
     questionInput.setAttribute('autofocus',1);
+    if (qst[index].answer != null) {
+        questionInput.value = qst[index].answer;
+    }
     enableNextBtn(true);
     questionInput.addEventListener('keydown',($)=>{
         //the value of the input has chnaged

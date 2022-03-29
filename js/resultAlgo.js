@@ -62,48 +62,82 @@ const getResult=(questions)=>{
     const hasPronosticFactor=getPronoFact(poorPronoFact);
 
 
+    let err = {
+        sick : {
+            text : 'Tu est malade !',
+            color : '#B22222'
+        },
+        not_sick : {
+            text : 'Tu n\'est pas malade',
+            color : '#026534'
+        }
+    }
+
+    let msg = {
+        title : null,
+        message : null
+    }
+
     if (symptoms.fever || (symptoms.cough && symptoms.soreThroat) || (symptoms.cough && symptoms.muscularPain) || (symptoms.fever && symptoms.diarrhea)) {
         if (factGravMaj > 0) {
-            return 'appel 141';
+            msg.title = err.sick;
+            msg.message = 'appel 141';
         } else if (!hasPronosticFactor) {
             if (poorPronoFact.age < 50 && factGravMin === 0) {
-                return 'nous vous conseillons de rester à votre domicile et de contacter votre médecin en cas d’apparition de nouveaux symptômes Vous pourrez aussi utiliser à nouveau l’application pour réévaluer vos symptômes';
+                msg.title = err.sick;
+                msg.message = 'nous vous conseillons de rester à votre domicile et de contacter votre médecin en cas d’apparition de nouveaux symptômes Vous pourrez aussi utiliser à nouveau l’application pour réévaluer vos symptômes';
             }
             if (((poorPronoFact.age > 50 && poorPronoFact.age < 70) && factGravMin === 0) || factGravMin > 0) {
-                return 'téléconsultation ou médecin généraliste ou visite à domicile';
+                msg.title = err.sick;
+                msg.message = 'téléconsultation ou médecin généraliste ou visite à domicile';
             }
         } else {
             if (factGravMin <= 1) {
-                return 'téléconsultation ou médecin généraliste ou visite à domicile';
+                msg.title = err.sick;
+                msg.message = 'téléconsultation ou médecin généraliste ou visite à domicile';
             } else {
-                return 'appel 141';
+                msg.title = err.sick;
+                msg.message = 'appel 141';
             }
         }
     }
     else if (symptoms.fever && symptoms.cough) {
         if (factGravMaj > 0) {
-            return 'appel 141';
+            msg.title = err.sick;
+            msg.message = 'appel 141';
         } else if (!hasPronosticFactor) {
-            return "téléconsultation ou médecin généraliste ou visite à domicile";
+            msg.title = err.sick;
+            msg.message = "téléconsultation ou médecin généraliste ou visite à domicile";
         } else {
             if (factGravMin <= 1) {
-                return "téléconsultation ou médecin généraliste ou visite à domicile";
+                msg.title = err.sick;
+            msg.message = "téléconsultation ou médecin généraliste ou visite à domicile";
             } else {
-                return 'appel 141';
+                msg.title = err.sick;
+            msg.message = 'appel 141';
             }
         }
     }
     else if (symptoms.fever || symptoms.cough || symptoms.soreThroat || symptoms.muscularPain) {
         if (factGravMaj === 0 && factGravMin === 0) {
-            return 'Votre situation ne relève probablement pas du Covid-19.';
+            start();
+            stop();
+            msg.title = err.not_sick;
+            msg.message = 'Votre situation ne relève probablement pas du Covid-19.';
         } else if (factGravMin > 0 || factGravMaj > 0 || hasPronosticFactor) {
-            return "Votre situation ne relève probablement pas du Covid-19. Un avis médical est recommandé. Au moindre doute, appelez le 141";
+            start();
+            stop();
+            msg.title = err.not_sick;
+            msg.message = "Votre situation ne relève probablement pas du Covid-19. Un avis médical est recommandé. Au moindre doute, appelez le 141";
         }
     }
     else {
-        return 'Votre situation ne relève probablement pas du Covid-19. N’hésitez pas à contacter votre médecin en cas de doute. Vous pouvez refaire le test en cas de nouveau symptôme pour réévaluer la situation. Pour toute information concernant le Covid-19 allez vers la page d’accueil.';
+        start();
+        stop();
+        msg.title = err.not_sick;
+        msg.message = 'Votre situation ne relève probablement pas du Covid-19. N’hésitez pas à contacter votre médecin en cas de doute. Vous pouvez refaire le test en cas de nouveau symptôme pour réévaluer la situation. Pour toute information concernant le Covid-19 allez vers la page d’accueil.';
     }
-    return 'bug found';
+    return msg;
 }
 
 
