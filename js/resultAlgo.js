@@ -31,7 +31,7 @@ const getPronoFact=(poorPronoFact)=>{
 const getResult=(questions)=>{
     const OUI=1,NON=0,JSP=2;
     const symptoms={
-        fever:questions[0].answer==OUI || questions[0].answer==NON,
+        fever:questions[0].answer==OUI || questions[0].answer==JSP,
         feverDeg:questions[1].answer,
         cough:questions[2].answer==OUI,
         muscularPain:questions[3].answer==OUI,
@@ -79,7 +79,8 @@ const getResult=(questions)=>{
                 return 'appel 141';
             }
         }
-    } else if (symptoms.fever && symptoms.cough) {
+    }
+    else if (symptoms.fever && symptoms.cough) {
         if (factGravMaj > 0) {
             return 'appel 141';
         } else if (!hasPronosticFactor) {
@@ -91,15 +92,18 @@ const getResult=(questions)=>{
                 return 'appel 141';
             }
         }
-    } else if (symptoms.fever || symptoms.cough || symptoms.soreThroat || symptoms.muscularPain) {
+    }
+    else if (symptoms.fever || symptoms.cough || symptoms.soreThroat || symptoms.muscularPain) {
         if (factGravMaj === 0 && factGravMin === 0) {
             return 'Votre situation ne relève probablement pas du Covid-19.';
         } else if (factGravMin > 0 || factGravMaj > 0 || hasPronosticFactor) {
             return "Votre situation ne relève probablement pas du Covid-19. Un avis médical est recommandé. Au moindre doute, appelez le 141";
         }
-    } else {
+    }
+    else {
         return 'Votre situation ne relève probablement pas du Covid-19. N’hésitez pas à contacter votre médecin en cas de doute. Vous pouvez refaire le test en cas de nouveau symptôme pour réévaluer la situation. Pour toute information concernant le Covid-19 allez vers la page d’accueil.';
     }
+    return 'bug found';
 }
 
 
